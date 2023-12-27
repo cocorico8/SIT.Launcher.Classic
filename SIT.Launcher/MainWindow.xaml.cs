@@ -16,6 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Tarkov.Deobfuscator;
 
 namespace SIT.Launcher
@@ -25,36 +27,27 @@ namespace SIT.Launcher
     /// </summary>
     public partial class MainWindow : MetroWindow, ILogger
     {
-        public MainWindow()
-        {
-            InitializeComponent();
+        public ImageSource SITIcon { get; set; }
+        public ImageSource ArenaIcon { get; set; }
+        public ImageSource BackgroundImage { get; set; }
 
-            if (File.Exists("LauncherConfig.json"))
+        public LauncherConfig Config { get; } = LauncherConfig.Instance;
+
+        public IEnumerable<ServerInstance> ServerInstances
+        {
+            get
             {
-                Config = JsonConvert.DeserializeObject<LauncherConfig>(File.ReadAllText("LauncherConfig.json"));
+                return ServerInstance.ServerInstances.AsEnumerable();
             }
-            this.DataContext = this;
-
-            this.Title = "SIT Launcher - " + App.ProductVersion.ToString();
-
-            this.Loaded += MainWindow_Loaded;
-            this.ContentRendered += MainWindow_ContentRendered;
-            this.Closing += MainWindow_Closing;
         }
 
-        private async void MainWindow_ContentRendered(object sender, EventArgs e)
-        {
-            await GetLatestSITRelease();
+        #region Check Installs
+        public bool HasEFTInstalled { get; } = EFTGameChecker.FindOfficialGame() != null;
+        public bool HasArenaInstalled { get; } = ArenaGameFinder.FindOfficialGame() != null;
+        
+        #endregion
 
-            NewInstallFromOfficial();
-            await UpdateInstallFromOfficial();
-
-
-            //ArchangelWTF: This function makes people crash due to it not being fully finished yet, only run in debug for now.
-#if DEBUG
-            DisplayLatestLogs();
-#endif
-        }
+        #region ReleasesBindings
 
         public static readonly DependencyProperty SITReleasesProperty = DependencyProperty.Register("SITReleases", typeof(ObservableCollection<Release>), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public ObservableCollection<Release> SITReleases
@@ -69,6 +62,74 @@ namespace SIT.Launcher
             get => (Release)GetValue(SelectedSITReleaseProperty);
             set => SetValue(SelectedSITReleaseProperty, value);
         }
+
+        public static readonly DependencyProperty ArenaReleasesProperty = DependencyProperty.Register("ArenaReleases", typeof(ObservableCollection<Release>), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        public ObservableCollection<Release> ArenaReleases
+        {
+            get => (ObservableCollection<Release>)GetValue(ArenaReleasesProperty);
+            set => SetValue(ArenaReleasesProperty, value);
+        }
+
+        public static readonly DependencyProperty SelectedArenaReleaseProperty = DependencyProperty.Register("SelectedArenaRelease", typeof(Release), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        public Release SelectedArenaRelease
+        {
+            get => (Release)GetValue(SelectedArenaReleaseProperty);
+            set => SetValue(SelectedArenaReleaseProperty, value);
+        }
+
+        public Visibility EFTInstalledVisibility => !string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility EFTNotInstalledVisibility => string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
+
+        #endregion
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            if (File.Exists("LauncherConfig.json"))
+            {
+                Config = JsonConvert.DeserializeObject<LauncherConfig>(File.ReadAllText("LauncherConfig.json"));
+            }
+            // Create Icon for SIT
+            if(Uri.TryCreate("Images/StayInTarkov.jpg", UriKind.RelativeOrAbsolute, out Uri sitIconUri))
+            {
+                this.SITIcon = new BitmapImage(sitIconUri);
+            }
+            // Create Icon for Paulov Arena
+            if (Uri.TryCreate(Path.Combine(App.ApplicationDirectory, "Images/Arena.jpg"), UriKind.RelativeOrAbsolute, out Uri arenaIconUri))
+            {
+                this.ArenaIcon = new BitmapImage(arenaIconUri);
+            }
+           
+            this.DataContext = this;
+
+            this.Title = "Paulov's SIT/Arena Launcher - " + App.ProductVersion.ToString();
+
+            this.Loaded += MainWindow_Loaded;
+            this.ContentRendered += MainWindow_ContentRendered;
+            this.Closing += MainWindow_Closing;
+        }
+
+        private async void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
+            await GetLatestSITRelease();
+
+            if (Config.AutoCheckForOfficialUpdates)
+            {
+                NewInstallFromOfficial();
+                await UpdateInstallFromOfficial();
+            }
+
+
+            //ArchangelWTF: This function makes people crash due to it not being fully finished yet, only run in debug for now.
+#if DEBUG
+            DisplayLatestLogs();
+#endif
+
+            this.DataContext = this;
+        }
+
+       
 
         private void DisplayLatestLogs()
         {
@@ -93,9 +154,6 @@ namespace SIT.Launcher
             SITReleases = new ObservableCollection<Release>(await github.Repository.Release.GetAll("stayintarkov", "StayInTarkov.Client", new ApiOptions() { }));
             SelectedSITRelease = SITReleases.OrderByDescending(x => x.CreatedAt).First();
 
-            rtbSITReleaseNews.Document = HtmlToFlowDocument(SelectedSITRelease.Body);
-            txtSITLatestReleaseTitle.Text = SelectedSITRelease.Name + " - " + SelectedSITRelease.CreatedAt.ToString();
-
         }
         public static FlowDocument HtmlToFlowDocument(string text)
         {
@@ -119,7 +177,7 @@ namespace SIT.Launcher
                 var exeLocation = string.Empty;
                 exeLocation = await CopyInstallFromOfficial(
                     EFTGameChecker.FindOfficialGame()
-                    , Directory.GetParent(Config.InstallLocation).FullName
+                    , Directory.GetParent(Config.InstallLocationEFT).FullName
                     , exeLocation);
             }
 
@@ -127,7 +185,7 @@ namespace SIT.Launcher
 
         private bool IsGameUpdateAvailable()
         {
-            if (string.IsNullOrEmpty(Config.InstallLocation))
+            if (string.IsNullOrEmpty(Config.InstallLocationEFT))
                 return false;
 
             if (EFTGameChecker.FindOfficialGame() == null)
@@ -148,7 +206,7 @@ namespace SIT.Launcher
             if (!officialAssemblyCSharpPath.Exists)
                 return false;
 
-            var offlineAssemblyCSharpPath = new FileInfo(Path.Combine(Directory.GetParent(Config.InstallLocation).FullName, "EscapeFromTarkov_Data", "Managed", "Assembly-CSharp.dll"));
+            var offlineAssemblyCSharpPath = new FileInfo(Path.Combine(Directory.GetParent(Config.InstallLocationEFT).FullName, "EscapeFromTarkov_Data", "Managed", "Assembly-CSharp.dll"));
             if (!offlineAssemblyCSharpPath.Exists)
                 return false;
 
@@ -163,13 +221,13 @@ namespace SIT.Launcher
         private async void NewInstallFromOfficial()
         {
             // Brand new setup of SIT
-            if (string.IsNullOrEmpty(Config.InstallLocation) 
+            if (string.IsNullOrEmpty(Config.InstallLocationEFT) 
                 
                 // Config Install Location exists, but the install location looks suspiciuosly like a direct copy of Live
                 // Check BepInEx
-                || !DoesBepInExExistInInstall(Config.InstallLocation)
+                || !DoesBepInExExistInInstall(Config.InstallLocationEFT)
                 // Check SIT.Core
-                || !IsSITCoreInstalled(Config.InstallLocation)
+                || !IsSITCoreInstalled(Config.InstallLocationEFT)
                
                 
                 )
@@ -223,7 +281,7 @@ namespace SIT.Launcher
                 currentNumber++;
             }
 
-            Config.InstallLocation = offlineFolder + "\\EscapeFromTarkov.exe";
+            Config.InstallLocationEFT = offlineFolder + "\\EscapeFromTarkov.exe";
             this.DataContext = null;
             this.DataContext = this;
 
@@ -266,15 +324,7 @@ namespace SIT.Launcher
             Config.Save();
         }
 
-        public LauncherConfig Config { get; } = LauncherConfig.Instance;
-
-        public IEnumerable<ServerInstance> ServerInstances 
-        { 
-            get 
-            {
-                return ServerInstance.ServerInstances.AsEnumerable();
-            } 
-        }
+       
 
         public enum ELaunchButtonState : short
         {
@@ -429,7 +479,7 @@ namespace SIT.Launcher
                 BrowseForOfflineGame();
 
                 // Check that above actually did something
-                if (!string.IsNullOrEmpty(Config.InstallLocation) && Config.InstallLocation.EndsWith(".exe"))
+                if (!string.IsNullOrEmpty(Config.InstallLocationEFT) && Config.InstallLocationEFT.EndsWith(".exe"))
                 {
                     await DownloadInstallAndStartGame(returnData);
                 }
@@ -452,7 +502,7 @@ namespace SIT.Launcher
 
         private void BrowseForOfflineGame()
         {
-            if (string.IsNullOrEmpty(Config.InstallLocation) || !File.Exists(Config.InstallLocation))
+            if (string.IsNullOrEmpty(Config.InstallLocationEFT) || !File.Exists(Config.InstallLocationEFT))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "EFT executatable|EscapeFromTarkov*";
@@ -460,7 +510,24 @@ namespace SIT.Launcher
                 {
                     var fvi = FileVersionInfo.GetVersionInfo(openFileDialog.FileName);
                     App.GameVersion = fvi.ProductVersion;
-                    Config.InstallLocation = openFileDialog.FileName;
+                    Config.InstallLocationEFT = openFileDialog.FileName;
+
+                    UpdateButtonText(null);
+                }
+            }
+        }
+
+        private void BrowseForOfflineGameArena()
+        {
+            if (string.IsNullOrEmpty(Config.InstallLocationArena) || !File.Exists(Config.InstallLocationArena))
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "EFT executatable|EscapeFromTarkovArena*";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    var fvi = FileVersionInfo.GetVersionInfo(openFileDialog.FileName);
+                    App.GameVersion = fvi.ProductVersion;
+                    Config.InstallLocationArena = openFileDialog.FileName;
 
                     UpdateButtonText(null);
                 }
@@ -473,7 +540,7 @@ namespace SIT.Launcher
 
             btnLaunchGame.IsEnabled = false;
 
-            var installLocation = Config.InstallLocation;
+            var installLocation = Config.InstallLocationEFT;
             if(!await DownloadAndInstallBepInEx5(installLocation))
             {
                 MessageBox.Show("Install and Start aborted");
@@ -512,6 +579,37 @@ namespace SIT.Launcher
                 StartGame(sessionId, installLocation);
             }
         }
+
+        private async Task DownloadInstallAndStartArena(string sessionId)
+        {
+            btnLaunchGame.IsEnabled = false;
+
+            var installLocation = Config.InstallLocationArena;
+            if (!await DownloadAndInstallBepInEx5(installLocation))
+            {
+                MessageBox.Show("Install and Start aborted");
+                return;
+            }
+
+            // Deobfuscate Assembly-CSharp
+            if (Config.AutomaticallyDeobfuscateDlls
+                && NeedsDeobfuscation(installLocation))
+            {
+                MessageBox.Show("Your game has not been deobfuscated and no client mods have been installed to allow OFFLINE play. Please install SIT or manually deobfuscate.");
+                //if (await Deobfuscate(installLocation))
+                //{
+                //    StartGame(sessionId, installLocation);
+                //}
+                UpdateButtonText(null);
+                btnLaunchGame.IsEnabled = true;
+            }
+            else
+            {
+                // Launch game
+                StartGame(sessionId, installLocation);
+            }
+        }
+
 
         private async void StartGame(string sessionId, string installLocation)
         {
@@ -986,8 +1084,6 @@ namespace SIT.Launcher
             gridPlay.Visibility = Visibility.Collapsed;
             gridTools.Visibility = Visibility.Collapsed;
             gridSettings.Visibility = Visibility.Collapsed;
-            gridSITVersions.Visibility = Visibility.Collapsed;
-
         }
 
         //private void btnCoopServer_Click(object sender, RoutedEventArgs e)
@@ -1017,10 +1113,10 @@ namespace SIT.Launcher
         private async void btnDeobfuscate_Click(object sender, RoutedEventArgs e)
         {
             BrowseForOfflineGame();
-            if (!string.IsNullOrEmpty(Config.InstallLocation) && Config.InstallLocation.EndsWith(".exe"))
+            if (!string.IsNullOrEmpty(Config.InstallLocationEFT) && Config.InstallLocationEFT.EndsWith(".exe"))
             {
-                CleanupDirectory(Config.InstallLocation);
-                await Deobfuscate(Config.InstallLocation, doRemapping: true);
+                CleanupDirectory(Config.InstallLocationEFT);
+                await Deobfuscate(Config.InstallLocationEFT, doRemapping: true);
             }
 
             UpdateButtonText(null);
@@ -1093,7 +1189,7 @@ namespace SIT.Launcher
 
         private void btnChangeOfflineInstallPath_Click(object sender, RoutedEventArgs e)
         {
-            Config.InstallLocation = null;
+            Config.InstallLocationEFT = null;
             BrowseForOfflineGame();
             Config.Save();
             this.DataContext = null;
@@ -1103,10 +1199,10 @@ namespace SIT.Launcher
         private async void btnDeobfuscateOnly_Click(object sender, RoutedEventArgs e)
         {
             BrowseForOfflineGame();
-            if (!string.IsNullOrEmpty(Config.InstallLocation) && Config.InstallLocation.EndsWith(".exe"))
+            if (!string.IsNullOrEmpty(Config.InstallLocationEFT) && Config.InstallLocationEFT.EndsWith(".exe"))
             {
-                CleanupDirectory(Config.InstallLocation);
-                await Deobfuscate(Config.InstallLocation, doRemapping: false);
+                CleanupDirectory(Config.InstallLocationEFT);
+                await Deobfuscate(Config.InstallLocationEFT, doRemapping: false);
             }
 
             UpdateButtonText(null);
@@ -1115,7 +1211,6 @@ namespace SIT.Launcher
         private void btnSITVersions_Click(object sender, RoutedEventArgs e)
         {
             CollapseAll();
-            gridSITVersions.Visibility = Visibility.Visible;
         }
 
         private void btnNewSITManagerAvailable_Click(object sender, RoutedEventArgs e)
@@ -1126,6 +1221,70 @@ namespace SIT.Launcher
                 UseShellExecute = true,
             };
             System.Diagnostics.Process.Start(sInfo);
+        }
+
+        private async void btnLaunchArena_Click(object sender, RoutedEventArgs e)
+        {
+            Config.Save();
+
+            var returnData = LoginToServer();
+
+            if (string.IsNullOrEmpty(returnData))
+            {
+                var messageBoxResult = MessageBox.Show("Something went wrong. Maybe the server hasn't been started? Check the logs.", "Account");
+                return;
+            }
+
+            // If all good, launch game with AID
+            if (!string.IsNullOrEmpty(returnData) && returnData != "FAILED" && returnData != "ALREADY_IN_USE")
+            {
+                BrowseForOfflineGameArena();
+
+                // Check that above actually did something
+                if (!string.IsNullOrEmpty(Config.InstallLocationArena) && Config.InstallLocationArena.EndsWith(".exe"))
+                {
+                    await DownloadInstallAndStartArena(returnData);
+                }
+
+            }
+            else if (returnData == "ALREADY_IN_USE")
+            {
+                var messageBoxResult = MessageBox.Show("The username/email has already been created, please use another one.", "Account");
+            }
+            else if (returnData.Length != 24) // NewId or something
+            {
+                var messageBoxResult = MessageBox.Show("Something went wrong. Maybe the server hasn't been started? Check the logs.", "Account");
+            }
+
+            if (Config.CloseLauncherAfterLaunch)
+            {
+                App.Current.Shutdown();
+            }
+        }
+
+        private async void btnInstallGameCopy_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("No OFFLINE install found. Would you like to install now?", "Install", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var fiOfficialGame = EFTGameChecker.FindOfficialGame();
+                if (fiOfficialGame == null)
+                    return;
+
+                FolderBrowserDialog folderBrowserDialogOffline = new FolderBrowserDialog();
+                folderBrowserDialogOffline.Title = "Select New Offline EFT Install Folder";
+                if (folderBrowserDialogOffline.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (fiOfficialGame.DirectoryName == folderBrowserDialogOffline.SelectedFolder)
+                    {
+                        MessageBox.Show("You cannot install OFFLINE into your Official Folder!", "Install");
+                        NewInstallFromOfficial();
+                        return;
+                    }
+
+                    var exeLocation = string.Empty;
+                    exeLocation = await CopyInstallFromOfficial(fiOfficialGame, folderBrowserDialogOffline.SelectedFolder, exeLocation);
+                }
+            }
         }
     }
 }

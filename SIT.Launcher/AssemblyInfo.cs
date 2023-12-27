@@ -13,12 +13,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SIT Launcher")]
-[assembly: AssemblyDescription("SIT Launcher")]
+[assembly: AssemblyTitle("Paulov Launcher")]
+[assembly: AssemblyDescription("Paulov Launcher")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Paulov")]
-[assembly: AssemblyProduct("SIT Launcher")]
-[assembly: AssemblyCopyright("Copyright © Paulov 2022")]
+[assembly: AssemblyProduct("Paulov Launcher")]
+[assembly: AssemblyCopyright("Copyright © Paulov 2022-2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,4 +32,4 @@ using System.Windows;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.13.*")]
+[assembly: AssemblyVersion("1.14.*")]

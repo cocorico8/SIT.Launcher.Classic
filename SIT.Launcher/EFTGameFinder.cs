@@ -24,7 +24,7 @@ namespace SIT.Launcher
 
             try
             {
-                gameFilePath = RegistryManager.GamePathEXE;
+                gameFilePath = RegistryManager.EFTGamePathEXE;
                 if (!string.IsNullOrEmpty(gameFilePath))
                 {
                     if (LC1A(gameFilePath))

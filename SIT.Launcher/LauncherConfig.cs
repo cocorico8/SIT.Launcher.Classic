@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIT.Launcher
 {
@@ -41,7 +37,8 @@ namespace SIT.Launcher
 
         public string Username { get; set; }
 
-        public string InstallLocation { get; set; }
+        public string InstallLocationEFT { get; set; }
+        public string InstallLocationArena { get; set; }
 
         public bool AutomaticallyInstallAssemblyDlls { get; set; } = true;
 
@@ -56,6 +53,8 @@ namespace SIT.Launcher
 
         public bool SendInfoToDiscord { get; set; } = false;
         public bool CloseLauncherAfterLaunch { get; set; } = false;
+
+        public bool AutoCheckForOfficialUpdates { get; set; } = false;
 
         private static LauncherConfig Load()
         {
