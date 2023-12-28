@@ -13,5 +13,17 @@
     //"BaseLocalGame"
   ],
   // Add SptUsec and SptBear to the Dll
-  "EnableAddSPTUsecBearToDll": true
+  //"EnableAddSPTUsecBearToDll": true,
+  "EnumAdditions": [
+    {
+      "type": "EFT.WildSpawnType",
+      "eValue": "sptUsec",
+      "iValue": 47
+    },
+    {
+      "type": "EFT.WildSpawnType",
+      "eValue": "sptBear",
+      "iValue": 48
+    }
+  ]
 }

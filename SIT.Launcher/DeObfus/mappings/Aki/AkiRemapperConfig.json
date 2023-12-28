@@ -196,7 +196,7 @@
     {
       "RenameClassNameTo": "ISession",
       "IsInterface": true,
-      "HasFields": [  ],
+      "HasFields": [],
       "HasEvents": [ "InventoryErrorHappened", "InventoryWarningHappened" ],
       "HasMethods": [ "GetProfiles", "SetMainProfile", "RagfairAddOffer", "RagfairRemoveOffer", "RagfairRenewOffer", "RagfairPurchaseOffers", "RagfairGetPrices" ],
       "OnlyRemapFirstFoundType": true
@@ -286,5 +286,17 @@
   ],
   "TypesToForceAllPublicFieldsAndProperties": [
   ],
-  "EnableAddSPTUsecBearToDll": false
+  //"EnableAddSPTUsecBearToDll": false,
+  "EnumAdditions": [
+    {
+      "type": "EFT.WildSpawnType",
+      "eValue": "sptUsec",
+      "iValue": 47
+    },
+    {
+      "type": "EFT.WildSpawnType",
+      "eValue": "sptBear",
+      "iValue": 48
+    }
+  ]
 }
