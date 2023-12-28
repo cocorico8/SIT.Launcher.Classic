@@ -87,11 +87,11 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition MinHeight="150"></RowDefinition>
-                        <RowDefinition Height="150" ></RowDefinition>
-                        <RowDefinition MaxHeight="90" ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition MaxHeight="150" ></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="250" Width="250"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="275" Width="275"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                   
@@ -128,39 +128,52 @@
                     
                     
 
-                    <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom">
-                        <Button x:Name="btnLaunchGame" Click="btnLaunchGame_Click" Visibility="{Binding EFTInstalledVisibility}" >
-                            <Button.Background>
-                                <ImageBrush ImageSource="{Binding SITIcon}" Stretch="None" />
-                            </Button.Background>
-                                <TextBlock Text="{Binding LaunchButtonText, Mode=TwoWay}" />
-                        </Button>
-                        <Button x:Name="btnInstallGameCopy" Click="btnInstallGameCopy_Click" Visibility="{Binding EFTNotInstalledVisibility}" >
-                            <Button.Background>
-                                <ImageBrush ImageSource="{Binding SITIcon}" Stretch="None" />
-                            </Button.Background>
-                            <TextBlock Text="Install" />
-                        </Button>
-                        <Border Padding="0,1,0,1">
-                            <ComboBox ItemsSource="{Binding SITReleases}" SelectedItem="{Binding SelectedSITRelease}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                    
+                    <Border Grid.Row="2">
+                        <Border Background="#EE333333"  BorderThickness="1" BorderBrush="#999999" Padding="5">
+                            <StackPanel>
+                                <TextBlock >Stay in Tarkov - Powered by SPT-AKI Server</TextBlock>
+                                <TextBlock Text="{Binding Config.InstallLocationEFT}"></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Game Version: "></TextBlock>
+                                    <TextBlock Text="{Binding EFTGameVersion}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="SIT Version: "></TextBlock>
+                                    <TextBlock Text="{Binding EFTSITVersion}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
                         </Border>
-                        <CheckBox IsChecked="{Binding Config.AutomaticallyInstallSIT}">
-                            <TextBlock Text="{DynamicResource textAutoInstallSIT}"></TextBlock>
-                        </CheckBox>
-                    </StackPanel>
-                    <Border Grid.Row="3">
-                        <StackPanel>
-                            <TextBlock >Stay in Tarkov - Powered by SPT-AKI Server</TextBlock>
-                            <TextBlock Text="{Binding Config.InstallLocation}"></TextBlock>
-                        </StackPanel>
                     </Border>
-             
+                    <Border Grid.Row="2" Grid.Column="2">
+                        <Border Background="#EE333333"  BorderThickness="1" BorderBrush="#999999" Padding="5">
+                            <StackPanel>
+                                <Button x:Name="btnLaunchGame" Click="btnLaunchGame_Click" Visibility="{Binding EFTInstalledVisibility}" >
+                                    <TextBlock Text="{Binding LaunchButtonText, Mode=TwoWay}" />
+                                </Button>
+                                <Button x:Name="btnInstallGameCopy" Click="btnInstallGameCopy_Click" Visibility="{Binding EFTNotInstalledVisibility}" >
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="{Binding SITIcon}" Stretch="None" />
+                                    </Button.Background>
+                                    <TextBlock Text="Install" />
+                                </Button>
+                                <Border Padding="0,1,0,1">
+                                    <ComboBox ItemsSource="{Binding SITReleases}" SelectedItem="{Binding SelectedSITRelease}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <CheckBox IsChecked="{Binding Config.AutomaticallyInstallSIT}">
+                                    <TextBlock Text="{DynamicResource textAutoInstallSIT}"></TextBlock>
+                                </CheckBox>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    
+
 
                 </Grid>
 

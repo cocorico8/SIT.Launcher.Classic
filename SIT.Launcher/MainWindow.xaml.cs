@@ -31,7 +31,14 @@ namespace SIT.Launcher
         public ImageSource ArenaIcon { get; set; }
         public ImageSource BackgroundImage { get; set; }
 
-        public LauncherConfig Config { get; } = LauncherConfig.Instance;
+        //public LauncherConfig Config { get; } = LauncherConfig.Instance;
+
+        public static readonly DependencyProperty ConfigProperty = DependencyProperty.Register("Config", typeof(LauncherConfig), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        public LauncherConfig Config
+        {
+            get => (LauncherConfig)GetValue(ConfigProperty);
+            set => SetValue(ConfigProperty, value);
+        }
 
         public IEnumerable<ServerInstance> ServerInstances
         {
@@ -79,6 +86,24 @@ namespace SIT.Launcher
 
         public Visibility EFTInstalledVisibility => !string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
         public Visibility EFTNotInstalledVisibility => string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
+
+
+        public string EFTGameVersion => !string.IsNullOrEmpty(Config.InstallLocationEFT)
+                ? FileVersionInfo.GetVersionInfo(Config.InstallLocationEFT).ProductVersion.Split('-')[0]
+                + "." + FileVersionInfo.GetVersionInfo(Config.InstallLocationEFT).ProductVersion.Split('-')[1]
+                 : "";
+
+        public string GetEFTSITPluginPath()
+        {
+            if (string.IsNullOrEmpty(Config.InstallLocationEFT))
+                return null;
+
+            return Path.Combine(GetBepInExPluginsPathInInstall(Config.InstallLocationEFT), "StayInTarkov.dll");
+        }
+
+        public string EFTSITVersion => File.Exists(GetEFTSITPluginPath())
+               ? FileVersionInfo.GetVersionInfo(GetEFTSITPluginPath()).ProductVersion
+                : "";
 
         #endregion
 
@@ -673,11 +698,24 @@ namespace SIT.Launcher
             //}
         }
 
-        private bool DoesBepInExExistInInstall(string exeLocation)
+        private string GetBepInExPathInInstall(string exePath)
         {
-            var baseGamePath = Directory.GetParent(exeLocation).FullName;
-            var bepinexPath = System.IO.Path.Combine(exeLocation.Replace("EscapeFromTarkov.exe", "BepInEx"));
-            var bepinexWinHttpDLL = exeLocation.Replace("EscapeFromTarkov.exe", "winhttp.dll");
+            var baseGamePath = Directory.GetParent(exePath).FullName;
+            var bepinexPath = System.IO.Path.Combine(exePath.Replace("EscapeFromTarkov.exe", "BepInEx"));
+            return bepinexPath;
+        }
+
+        private string GetBepInExPluginsPathInInstall(string exePath)
+        {
+            var bepinexPluginsPath = System.IO.Path.Combine(GetBepInExPathInInstall(exePath), "plugins");
+            return bepinexPluginsPath;
+        }
+
+        private bool DoesBepInExExistInInstall(string exePath)
+        {
+            var baseGamePath = Directory.GetParent(exePath).FullName;
+            var bepinexPath = System.IO.Path.Combine(exePath.Replace("EscapeFromTarkov.exe", "BepInEx"));
+            var bepinexWinHttpDLL = exePath.Replace("EscapeFromTarkov.exe", "winhttp.dll");
 
             var bepinexCorePath = System.IO.Path.Combine(bepinexPath, "core");
             var bepinexPluginsPath = System.IO.Path.Combine(bepinexPath, "plugins");
