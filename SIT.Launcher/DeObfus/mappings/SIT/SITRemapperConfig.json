@@ -288,6 +288,28 @@
       "InheritsClass": "AbstractInventoryOperation",
       "HasMethods": [ "SucceedAmmoManipulationHandler" ],
       "ConvertInternalMethodsToPublic": true
+    },
+    {
+      "RenameClassNameTo": "BSGNetworkWriter",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethods": [ "Reset", "WriteByte", "WriteBytes" ]
+    },
+    {
+      "RenameClassNameTo": "BSGNetworkReader",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethods": [ "ReadByte", "ReadBytes" ]
+    },
+    {
+      "RenameClassNameTo": "BSGNetworkConversionHelpers",
+      "IsClass": true,
+      "HasMethodsStatic": [ "ScaleByteToFloat" ]
+    },
+    {
+      "RenameClassNameTo": "BSGDirectionalHelpers",
+      "IsClass": true,
+      "HasMethodsStatic": [ "ConvertToMovementDirection" ]
     }
   ],
   "DefinedTypesToForcePublic": [

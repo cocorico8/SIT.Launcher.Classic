@@ -272,13 +272,67 @@
       "HasFields": [ "Action", "Reason" ]
 
     },
-    {
-      "RenameClassNameTo": "LootItemPositionClass",
-      // This name comes from my Auto Remapper (and makes sense). I don't know why Aki chose the name LootItemPositionClass instead?!
-      "ClassName": "JsonLootItem",
-      "OnlyRemapFirstFoundType": true
-    }
+    //,
+    //{
+    //  "RenameClassNameTo": "LootItemPositionClass",
+    //  "ClassName": "JsonLootItem",
+    //  "OnlyRemapFirstFoundType": true
+    //}
 
+    /*
+    // This is auto remapped to BtrController
+    "GClass2911": "BTRControllerClass",
+    */
+
+    // "GStruct378": "BTRDataPacket",
+    {
+      "RenameClassNameTo": "BTRDataPacket",
+      "IsStruct": true,
+      "HasFields": [ "BtrBotId", "MoveSpeed", "moveDirection", "timeToEndPause", "currentSpeed", "RightSlot1State" ],
+      "HasMethods": [ "Serialize", "Deserialize" ]
+
+    },
+    // This is auto remapped to InteractWithBtrPacket
+    //"GStruct167": "PlayerInteractPacket",
+
+    //"GClass3252": "AchievementDataClass",
+    {
+      "RenameClassNameTo": "AchievementDataClass",
+      "IsClass": true,
+      "HasFields": [ "GlobalProgressPercent" ],
+      "HasConstructorArgs": [ "tid", "unlockDate", "globalProgressPercent", "status" ]
+    },
+    //"GClass3207": "AchievementControllerClass",
+    {
+      "RenameClassNameTo": "AchievementControllerClass",
+      "IsClass": true,
+      "IsSealed": true,
+      "MustBeGClass": true,
+      "InheritsClass": "AbstractAchievementsController1",
+      "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ]
+    }
+    // This is auto remapped to BufferZoneController
+    //"GClass2948": "BufferZoneControllerClass",
+
+    //"GClass1854": "GetActionsClass",
+
+    // This is auto remapped to AbstractQuestController
+    //"GClass3201": "AbstractQuestControllerClass",
+
+    // This is auto remapped to AbstractAchievementController
+    //"GClass3205": "AbstractAchievementControllerClass",
+
+    // This is auto remapped to Request1
+    //"GStruct21": "LegacyParamsStruct",
+
+    // This is auto remapped to HalloweenEventController
+    //"GClass1476": "HalloweenEventControllerClass",
+
+    // This is auto remapped to ImprovementController
+    //"GClass1907": "ImprovementControllerClass",
+
+    // This is auto remapped to Achievement1
+    //"GClass1248": "AchievementModelClass"
   ],
   "DefinedTypesToForcePublic": [
   ],
