@@ -6,7 +6,7 @@ This Launcher is designed to work with [SPT-AKI](https://dev.sp-tarkov.com/SPT-A
 
 <div align=center>
 
-![GitHub all releases](https://img.shields.io/github/downloads/paulov-t/SIT.Launcher/total) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/paulov-t/SIT.Launcher/latest/total)
+![GitHub all releases](https://img.shields.io/github/downloads/paulov-t/SIT.Launcher.Classic/total) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/paulov-t/SIT.Launcher.Classic/latest/total)
 
 </div>
 
