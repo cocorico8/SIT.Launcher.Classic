@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Octokit;
 using Paulov.Tarkov.Deobfuscator.Lib;
 using System;
@@ -36,7 +37,14 @@ namespace SIT.Launcher
         public static readonly DependencyProperty ConfigProperty = DependencyProperty.Register("Config", typeof(LauncherConfig), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public LauncherConfig Config
         {
-            get => (LauncherConfig)GetValue(ConfigProperty);
+            get
+            {
+                var con = GetValue(ConfigProperty);
+                if(con == null)
+                    SetValue(ConfigProperty, LauncherConfig.Instance);
+
+                return (LauncherConfig)GetValue(ConfigProperty);
+            } 
             set => SetValue(ConfigProperty, value);
         }
 
@@ -84,17 +92,20 @@ namespace SIT.Launcher
             set => SetValue(SelectedArenaReleaseProperty, value);
         }
 
-        public Visibility EFTInstalledVisibility => !string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility EFTNotInstalledVisibility => string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility EFTInstalledVisibility => Config != null && !string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility EFTNotInstalledVisibility => Config != null && string.IsNullOrEmpty(Config.InstallLocationEFT) ? Visibility.Visible : Visibility.Collapsed;
 
 
-        public string EFTGameVersion => !string.IsNullOrEmpty(Config.InstallLocationEFT)
+        public string EFTGameVersion => Config != null && !string.IsNullOrEmpty(Config.InstallLocationEFT)
                 ? FileVersionInfo.GetVersionInfo(Config.InstallLocationEFT).ProductVersion.Split('-')[0]
                 + "." + FileVersionInfo.GetVersionInfo(Config.InstallLocationEFT).ProductVersion.Split('-')[1]
                  : "";
 
         public string GetEFTSITPluginPath()
         {
+            if (Config == null)
+                return null;
+
             if (string.IsNullOrEmpty(Config.InstallLocationEFT))
                 return null;
 
