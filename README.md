@@ -35,9 +35,12 @@ No license is provided. This is open source but I would prefer if credit was giv
 - Extract the entire zip file anywhere  except the client directory 
 - Open SIT.Launcher.exe
 - Open Settings check install Assembly and install SIT
-- Put the server address at the top (normally http://127.0.0.1:6969)
+- Put the server address at the top (example http://127.0.0.1:6969)
 - Put your username (don't use anything that is used anywhere else)
 - Create a password (don't use anything that is used anywhere else)
 - Click Launch (Browse to the Offline Tarkov exe!)
 - Good to go! 
+
+# Uses
+- [Paulov.Tarkov.Deobfuscator.Lib - My own Deobfuscator & Remapper based on Bepis' work](https://www.nuget.org/packages/Paulov.Tarkov.Deobfuscator.Lib)
 
