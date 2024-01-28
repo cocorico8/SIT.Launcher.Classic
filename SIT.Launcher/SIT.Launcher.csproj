@@ -2,25 +2,14 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-	  <!--<PlatformTarget>x64</PlatformTarget>-->
 	  <ApplicationIcon>Stay-In-Tarkov-512.ico</ApplicationIcon>
-	  <!--<PublishSingleFile>true</PublishSingleFile>-->
-	  <!-- <SelfContained>true</SelfContained>-->
 	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	  <SelfContained>true</SelfContained>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <Deterministic>false</Deterministic>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="AkiSupport\Bepinex\aki-core.dll" />
-    <None Remove="AkiSupport\Bepinex\aki-custom.dll" />
-    <None Remove="AkiSupport\Bepinex\Patchers\DONOTDELETE.txt" />
-    <None Remove="AkiSupport\Bepinex\Plugins\DONOTDELETE.txt" />
-    <None Remove="Images\Arena.jpg" />
-  </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Resources\Languages\English.xaml" />
