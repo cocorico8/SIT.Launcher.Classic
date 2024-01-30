@@ -300,6 +300,7 @@ namespace SIT.Launcher
 
             var countOfOfficialFiles = officialFiles.Count();
             var currentNumber = 1;
+            await loadingDialog.UpdateAsync("Installing", $"Found {countOfOfficialFiles} files to Copy", 0);
             foreach (var file in officialFiles)
             {
                 var percent = (int)Math.Round((decimal)(currentNumber / countOfOfficialFiles) * 100);
@@ -449,12 +450,12 @@ namespace SIT.Launcher
             loginData.Add("email", Username);
             loginData.Add("edition", "Edge Of Darkness"); // default to EoD
             //data.Add("edition", "Standard");
-            if (string.IsNullOrEmpty(txtPassword.Password))
-            {
-                MessageBox.Show("You cannot use an empty Password for your account!");
-                return null;
-            }
-            loginData.Add("password", txtPassword.Password);
+            //if (string.IsNullOrEmpty(txtPassword.Password))
+            //{
+            //    MessageBox.Show("You cannot use an empty Password for your account!");
+            //    return null;
+            //}
+            //loginData.Add("password", txtPassword.Password);
             // Add backendUrl to support people who connect locally
             loginData.Add("backendUrl", Config.ServerInstance.ServerAddress);
 
@@ -472,6 +473,15 @@ namespace SIT.Launcher
                     var messageBoxResult = MessageBox.Show("Your account has not been found, would you like to register a new account with these credentials?", "Account", MessageBoxButton.YesNo);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
+                        // Add a Developer option
+                        if (Username.Contains("Dev"))
+                        {
+                            messageBoxResult = MessageBox.Show("Your account contains \"Dev\", would you like to create a Developer (\"cheat\") account?", "Account", MessageBoxButton.YesNo);
+                            if (messageBoxResult == MessageBoxResult.Yes)
+                                loginData["edition"] = "SPT Developer";
+
+                        }
+
                         // Register
                         returnData = requesting.PostJson("/launcher/profile/register", JsonConvert.SerializeObject(loginData));
                         // Login attempt after register
@@ -601,7 +611,7 @@ namespace SIT.Launcher
             if (Config.AutomaticallyDeobfuscateDlls
                 && NeedsDeobfuscation(installLocation))
             {
-                MessageBox.Show("Your game has not been deobfuscated and no client mods have been installed to allow OFFLINE play. Please install SIT or manually deobfuscate.");
+                MessageBox.Show("Your game has not been deobfuscated and no client mods have been installed to allow OFFLINE play. Please install SIT or manually deobfuscate using \"Tools->Deobfuscate And Remap Assembly\"");
                 //if (await Deobfuscate(installLocation))
                 //{
                 //    StartGame(sessionId, installLocation);
@@ -1128,36 +1138,7 @@ namespace SIT.Launcher
             }
         }
 
-        private void CollapseAll()
-        {
-            gridPlay.Visibility = Visibility.Collapsed;
-            gridTools.Visibility = Visibility.Collapsed;
-            gridSettings.Visibility = Visibility.Collapsed;
-        }
-
-        //private void btnCoopServer_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CollapseAll();
-        //    //gridCoopServer.Visibility = Visibility.Visible;
-        //}
-
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
-        {
-            CollapseAll();
-            gridPlay.Visibility = Visibility.Visible;
-        }
-
-        private void btnSettingsPopup_Click(object sender, RoutedEventArgs e)
-        {
-            CollapseAll();
-            gridSettings.Visibility = Visibility.Visible;
-        }
-
-        private void btnToToolsWindow_Click(object sender, RoutedEventArgs e)
-        {
-            CollapseAll();
-            gridTools.Visibility = Visibility.Visible;
-        }
+       
 
         private async void btnDeobfuscate_Click(object sender, RoutedEventArgs e)
         {
@@ -1188,16 +1169,6 @@ namespace SIT.Launcher
                 txtDeobfuscateLog.Text += message + Environment.NewLine;
                 //txtDeobfuscateLog.ScrollToEnd();
             });
-        }
-
-        private void btnServer_Click(object sender, RoutedEventArgs e)
-        {
-            CollapseAll();
-        }
-
-        private void btnServerEXE_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnServerCommand_Click(object sender, RoutedEventArgs e)
@@ -1255,11 +1226,6 @@ namespace SIT.Launcher
             }
 
             UpdateButtonText(null);
-        }
-
-        private void btnSITVersions_Click(object sender, RoutedEventArgs e)
-        {
-            CollapseAll();
         }
 
         private void btnNewSITManagerAvailable_Click(object sender, RoutedEventArgs e)
