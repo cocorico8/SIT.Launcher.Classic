@@ -93,8 +93,13 @@ namespace SIT.Launcher
             });
         }
 
-        public async Task<bool> UpdateAsync(string loadingSubTitle, string loadingCurrentMessage, int progress)
+        public async Task<bool> UpdateAsync(string loadingSubTitle, string loadingCurrentMessage, int progress, int progressMax = 100)
         {
+            Dispatcher.Invoke(() =>
+            {
+                pbar.Maximum = progressMax;
+            });
+
             return await Task.Run(() => { Update(loadingSubTitle, loadingCurrentMessage, progress); return true; });
         }
 
