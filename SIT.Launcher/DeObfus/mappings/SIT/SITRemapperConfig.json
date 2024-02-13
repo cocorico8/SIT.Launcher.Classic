@@ -310,24 +310,24 @@
       "RenameClassNameTo": "BSGDirectionalHelpers",
       "IsClass": true,
       "HasMethodsStatic": [ "ConvertToMovementDirection" ]
+    },
+    {
+      "RenameClassNameTo": "QuestController",
+      "IsClass": true,
+      "HasEvents": [ "OnNewQuestsAdded" ],
+      "HasMethods": [ "AcceptQuest", "CreateConditionalList", "Dispose", "FinishQuest", "FinishQuest" ]
     }
+
   ],
   "DefinedTypesToForcePublic": [
-    //"EFT.BaseLocalGame",
-    //"EFT.Player",
-    //"EFT.Player/FirearmController",
-    //"EFT.Player/GrenadeController", //,
-    //"EFT.Player/MedsController"
     "BodyPartState",
     "AHealthController/BodyPartState",
-    //"ItemController",
     "EFT.Player/PlayerInventoryController",
     "EFT.Player/PlayerOwnerInventoryController",
     "EFT.Player/SinglePlayerInventoryController",
     "EFT.Player/EmptyHandsController",
     "EasyBundle",
     "ProfileChangeHandler"
-
   ],
   "TypesToForceAllPublicMethods": [
     "EFT.BaseLocalGame",
@@ -337,14 +337,15 @@
   ],
   "TypesToForceAllPublicFieldsAndProperties": [
     "BaseLocalGame",
-    "AbstractActiveHealthController" //,
-    //"PlayerHealthController"
+    "AbstractActiveHealthController"
   ],
   "TypesToConvertConstructorsToPublic": [
     "AbstractInventoryOperation",
     "MoveInternalOperation",
     "FoldOperation"
   ],
-  // Add SptUsec and SptBear to the Dll
-  "EnableAddSPTUsecBearToDll": true
+  "AutoRemapTypeExcemptions": [
+
+  ],
+  "AutoRemapDescriptors": true
 }

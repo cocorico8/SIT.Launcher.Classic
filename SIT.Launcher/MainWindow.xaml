@@ -311,6 +311,7 @@
                                 <CheckBox IsChecked="{Binding Config.CloseLauncherAfterLaunch}"></CheckBox>
                                 <mah:MetroHeader Content="Auto check for Official Updates" Foreground="White" />
                                 <CheckBox IsChecked="{Binding Config.AutoCheckForOfficialUpdates}"></CheckBox>
+                                <Button x:Name="btnCheckForOfficialUpdate" Click="btnCheckForOfficialUpdate_Click">Check for Official Update</Button>
                             </StackPanel>
                         </mah:MetroTabItem>
                     </TabControl>

@@ -1301,5 +1301,10 @@ namespace SIT.Launcher
                 }
             }
         }
+
+        private async void btnCheckForOfficialUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            await UpdateInstallFromOfficial();
+        }
     }
 }

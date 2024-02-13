@@ -10,9 +10,18 @@
       "RenameClassNameTo": "BattleeyePatchClass",
       "HasMethods": [ "RunValidation" ]
     },
+    // "GClass1216": "LocationSettingsClass",
+    {
+      "RenameClassNameTo": "LocationSettingsClass",
+      "HasFields": [ "locations", "paths" ]
+    },
     {
       "RenameClassNameTo": "BotMemoryClass",
       "HasMethods": [ "LoseVisionCurrentEnemy", "ComeToPoint", "AddEnemy" ]
+    },
+    {
+      "RenameClassNameTo": "BackendConfigSettingsClass",
+      "HasFields": [ "StaminaDrain", "StaminaRestoration", "Stamina", "Mastering", "SkillsSettings" ]
     },
     {
       "RenameClassNameTo": "WaveInfo",
@@ -33,6 +42,30 @@
       "HasMethods": [ "OnProfileChangeApplied", "ShowScreen", "StopAfkMonitor", "StoreProfile", "Unsubscribe" ]
     },
     {
+      "RenameClassNameTo": "FramerateLimitClass",
+      "HasFields": [ "player_0", "iPlayer", "AIData", "AverageRotationSpeed", "BotSoundCoef", "SoundRadius", "Velocity", "IsAI", "CharacterController", "CurrentStataName", "CharacterSpeed" ],
+      "HasMethods": [ "HasBodyPartCollider", "ShotReactions" ]
+    },
+    // This doesn't seem right, take it up with Chomp
+    //{
+    //  "RenameClassNameTo": "ProfileChangesPocoClass",
+    //  "HasFields": [ "player_0", "iPlayer", "AIData", "AverageRotationSpeed", "BotSoundCoef", "SoundRadius", "Velocity", "IsAI", "CharacterController", "CurrentStataName", "CharacterSpeed" ],
+    //  "HasMethods": [ "HasBodyPartCollider", "ShotReactions" ]
+    //},
+    {
+      "RenameClassNameTo": "EnergyControllerClass",
+      "HasFields": [ "IsEnergyGenerationOn" ]
+    },
+    {
+      "RenameClassNameTo": "HideoutClass",
+      "HasFields": [ "ProductionController", "ImprovementController", "AreaInfo_0" ]
+    },
+    {
+      "RenameClassNameTo": "ProductionControllerClass",
+      "HasFields": [ "TotalProducedItemsCount", "TotalFailedItemsCount" ],
+      "HasEvents": [ "OnProductionComplete", "OnProducedItemCountChanged" ]
+    },
+    {
       "RenameClassNameTo": "NotificationClass",
       "HasFields": [ "ShowNotification", "Icon" ]
     },
@@ -40,9 +73,41 @@
       "RenameClassNameTo": "NotificationManagerClass",
       "HasFields": [ "ProfileChangeNotifications", "Notifications" ]
     },
+    // I couldn't find this class? GClass2947
+    //{
+    //  "RenameClassNameTo": "CameraClass",
+    //},
+    {
+      "RenameClassNameTo": "TraderAssortmentControllerClass",
+      "HasFields": [ "CurrentQuantity", "SelectedItem", "LoyalLevelItems", "PreparedSum" ]
+    },
+    {
+      "RenameClassNameTo": "BossLogicClass",
+      "HasMethods": [ "SetPatrolMode" ],
+      "HasConstructorArgs": [ "owner", "bossLogic" ],
+      "ExactDeclaredMethodCount": 1
+    },
+    {
+      "RenameClassNameTo": "TraderClass",
+      "HasMethods": [ "GetOffers", "GetRepairQuality" ],
+      "HasConstructorArgs": [ "trading", "traderInfo" ]
+    },
     {
       "RenameClassNameTo": "WeatherClass",
       "HasMethods": [ "GetWeatherTypeByNode" ]
+    },
+    {
+      "RenameClassNameTo": "ClientMetrics",
+      "HasFields": [ "MaxPacketsQueueCountBinMetricCollector" ],
+      "HasConstructorArgs": [ "metricsConfig" ]
+    },
+    {
+      "RenameClassNameTo": "MetricsClass",
+      "HasFields": [ "Settings", "SharedSettings", "HardwareDescription", "Location", "Metrics", "ClientEvents", "SpikeSamples" ]
+    },
+    {
+      "RenameClassNameTo": "MetricsConfigClass",
+      "HasFields": [ "Keys", "NetProcessingBins", "RenderBins", "GameUpdateBins", "MemoryMeasureInterval", "PauseReasons" ]
     },
     {
       "RenameClassNameTo": "SynchronizableObjectLogicProcessorClass",
@@ -51,6 +116,10 @@
     {
       "RenameClassNameTo": "AirdropManagerAbstractClass",
       "HasMethods": [ "TakeAirdropPoint" ]
+    },
+    {
+      "RenameClassNameTo": "AirdropManagerClass",
+      "InheritsClass": "AirdropManagerAbstractClass"
     },
     // These two Airdrop classes are VERY similar
     // Airdrops: Run this first
@@ -70,11 +139,130 @@
       "HasMethods": [ "CollisionEnter", "Init", "InitStaticObject", "SetSyncObject", "ManualUpdate", "UpdateSyncObjectData", "TakeFromPool", "ReturnToPool", "method_6" ]
     },
     {
+      "RenameClassNameTo": "QuestDataClass",
+      "IsClass": true,
+      "HasFields": [ "Id", "StartTime", "Status", "StatusStartTimestamps", "CompletedConditions", "AvailableAfter", "Template" ]
+    },
+    {
+      "RenameClassNameTo": "QuestClass",
+      "IsClass": true,
+      "HasFields": [ "Id", "Image", "InstantComplete", "PlayerSide", "ProgressCheckers" ],
+      "HasMethods": [ "GetCondition" ]
+    },
+    {
       "RenameClassNameTo": "QuestControllerClass",
       "OnlyRemapFirstFoundType": true,
       "IsClass": true,
       "HasFields": [],
-      "HasMethods": [ "GetItemsForCondition", "AcceptQuest", "CheckExitConditionCounters" ]
+      "HasMethods": [ "CreateConditionsConnectors", "ConnectCondition", "ManageConditionsConnections" ]
+    },
+    {
+      "RenameClassNameTo": "RawQuestClass",
+      "IsClass": true,
+      "HasFields": [ "QuestSuccessMessageKey", "AcceptPlayerMessageKey", "DeclinePlayerMessageKey", "CompletePlayerMessageKey" ]
+    },
+    {
+      "RenameClassNameTo": "DailyQuestClass",
+      "IsClass": true,
+      "HasFields": [ "Quests", "QuestChangeRequirement", "InactiveQuests" ]
+    },
+    {
+      "RenameClassNameTo": "SessionCountersClass",
+      "IsClass": true,
+      "HasEvents": [ "OnCounterChanged" ],
+      "HasMethods": [ "AddLong" ]
+    },
+    {
+      "RenameClassNameTo": "HealthControllerClass",
+      "IsClass": true,
+      "HasEvents": [ "EffectStartedEvent", "EffectUpdatedEvent", "EffectResidualEvent", "EffectRemovedEvent", "EffectAddedEvent" ],
+      "HasMethodsStatic": [ "CalculateRegenBaseRatesPerSecond" ],
+      "HasMethods": [ "ChangeHealth" ]
+    },
+    {
+      "RenameClassNameTo": "TreatmentDataClass",
+      "IsClass": true,
+      "HasFields": [ "Energy", "Hydration", "BodyParts" ],
+      "ExactDeclaredMethodCount": 0,
+      "ExactDeclaredFieldCount": 3
+    },
+    // This seems wrong. Need to report to Chomp
+    //{
+    //  "RenameClassNameTo": "Equipment",
+    //  "IsClass": true,
+    //  "HasFields": [ "Energy", "Hydration", "BodyParts" ],
+    //  "ExactDeclaredMethodCount": 0
+    //},
+    {
+      "RenameClassNameTo": "SecureContainerTemplateClass",
+      "IsClass": true,
+      "HasFields": [ "containType", "sizeWidth", "sizeHeight", "isSecured", "spawnTypes", "lootFilter", "spawnRarity", "minCountSpawn", "maxCountSpawn", "openedByKeyID" ]
+    },
+    {
+      "RenameClassNameTo": "Meds2Class",
+      "IsClass": true,
+      "InheritsClass": "ItemTemplate",
+      "HasFields": [ "UseTime", "BodyPartTimeMults", "HealthEffects", "DamageEffects", "StimulatorBuffs" ]
+    },
+    {
+      "RenameClassNameTo": "RepairKitClass",
+      "IsClass": true,
+      "InheritsClass": "ItemTemplate",
+      "HasFields": [ "MaxRepairResource", "TargetItemFilter", "RepairQuality", "RepairStrategyTypes" ]
+    },
+    {
+      "RenameClassNameTo": "MoneyClass",
+      "IsClass": true,
+      "HasFields": [ "type", "eqMin", "eqMax", "rate" ],
+      "ExactDeclaredFieldCount": 4
+    },
+    {
+      "RenameClassNameTo": "ThrowableWeaponClass",
+      "IsClass": true,
+      "InheritsClass": "ItemTemplate",
+      "HasFields": [ "ThrowType" ]
+    },
+    {
+      "RenameClassNameTo": "LootItemClass",
+      "IsClass": true,
+      "InheritsClass": "ContainerCollection",
+      "HasMethods": [ "Apply" ],
+      "HasConstructorArgs": [ "id", "template" ]
+    },
+    {
+      "RenameClassNameTo": "ArmorClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Buff" ],
+      "HasConstructorArgs": [ "id", "template" ]
+    },
+    {
+      "RenameClassNameTo": "GogglesClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "BlindnessProtection" ],
+      "HasConstructorArgs": [ "id", "template" ]
+    },
+    {
+      "RenameClassNameTo": "SightModClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Sight" ],
+      "HasConstructorArgs": [ "id", "template" ]
+    },
+    {
+      "RenameClassNameTo": "BossKnightBrainClass",
+      "OnlyRemapFirstFoundType": true,
+      "HasConstructorArgs": [ "owner" ],
+      "HasFields": [ "int_0" ],
+      "HasMethods": [ "ForceRecalcShootPos", "EventsPriority", "ShortName" ]
+    },
+    {
+      "RenameClassNameTo": "ExUsecBrainClass",
+      "OnlyRemapFirstFoundType": true,
+      "HasConstructorArgs": [ "owner" ],
+      "HasFields": [ "int_0", "bool_0" ],
+      "HasMethods": [ "EventsPriority", "ShortName" ]
     },
     {
       "RenameClassNameTo": "MagazineClass",
@@ -83,9 +271,151 @@
       "HasMethodsVirtual": [ "FirstRealAmmo" ]
     },
     {
+      "RenameClassNameTo": "CylinderMagazineClass",
+      "InheritsClass": "MagazineClass",
+      "HasFields": [],
+      "HasMethods": [ "GetAmmoByCamoraIndex", "GetFirstAmmo", "RemoveAmmoInCamora" ]
+    },
+    {
+      "RenameClassNameTo": "SpringDrivenCylinderMagazineClass",
+      "InheritsClass": "CylinderMagazineClass"
+    },
+    {
+      "RenameClassNameTo": "MountModClass",
+      "HasFields": [ "HeatFactor", "CoolFactor" ],
+      "ExactDeclaredFieldCount": 2
+    },
+    {
+      "RenameClassNameTo": "StockItemClass",
+      "HasFields": [ "HeatFactor", "CoolFactor", "Foldable", "DurabilityBurnModificator" ],
+      "ExactDeclaredFieldCount": 4
+    },
+    {
+      "RenameClassNameTo": "BarrelModClass",
+      "HasFields": [ "CenterOfImpactMOA" ]
+    },
+    {
+      "RenameClassNameTo": "SearchableItemClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "HasFields": [ "SearchSound" ]
+    },
+    {
+      "RenameClassNameTo": "ItemContainerClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "HasFields": [ "isSecured", "sizeWidth", "sizeHeight", "ItemInteractionButtons" ]
+    },
+    {
+      "RenameClassNameTo": "SortingTableClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "HasFields": [ "Containers" ],
+      "HasMethods": [ "ClampSize", "Close" ]
+    },
+    {
+      "RenameClassNameTo": "StashClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "HasFields": [ "STASH_ITEM_ID", "STASH_TEMPLATE_ID" ],
+      "HasMethods": [ "UpdateBonuses" ]
+    },
+    {
+      "RenameClassNameTo": "EquipmentClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "HasMethods": [ "GetSlot" ]
+    },
+    {
+      "RenameClassNameTo": "FoodClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "InheritsClass": "Item",
+      "HasFields": [ "ItemInteractionButtons" ]
+    },
+    {
+      "RenameClassNameTo": "MedsClass",
+      "HasConstructorArgs": [ "id", "template" ],
+      "InheritsClass": "Item",
+      "HasFields": [ "HealthEffectsComponent", "MedKitComponent" ]
+    },
+    {
       "RenameClassNameTo": "BulletClass",
       "HasFields": [ "MinFragmentsCount", "MaxFragmentsCount", "ammoShiftChance", "ProjectileCount", "InitialSpeed" ],
       "HasMethods": [ "Clone" ]
+    },
+    {
+      "RenameClassNameTo": "GrenadeClass",
+      "HasMethods": [ "CreateFragment", "GetItem" ]
+    },
+    //{
+    //  "RenameClassNameTo": "TemplateIdToObjectMappingsClass",
+    //  "HasMethods": [ "ItemConstructors" ]
+    //},
+    {
+      "RenameClassNameTo": "ItemAttributeClass",
+      "HasFields": [ "Enhancement" ],
+      "HasEvents": [ "OnUpdate" ],
+      "HasConstructorArgs": [ "id" ]
+    },
+    {
+      "RenameClassNameTo": "TraderControllerClass",
+      "HasEvents": [ "OnItemFound" ],
+      "HasConstructorArgs": [ "rootItem", "profileId", "name", "canBeLocalized", "type", "questStashItem", "questRaidItem" ]
+    },
+    {
+      "RenameClassNameTo": "InventoryControllerClass",
+      "HasEvents": [ "OnAmmoLoaded" ],
+      "HasConstructorArgs": [ "profile", "examined", "customId" ]
+    },
+    {
+      "RenameClassNameTo": "BossKojaniyBrainClass",
+      "HasMethods": [ "SetBossKojaniy" ],
+      "HasConstructorArgs": [ "botOwner" ]
+    },
+    {
+      "RenameClassNameTo": "RagdollClass",
+      "HasFields": [ "rigidbodySpawner_0" ],
+      "HasMethods": [ "Start", "Update" ]
+    },
+    {
+      "RenameClassNameTo": "ShootPointClass",
+      "HasFields": [ "DistCoef", "Point" ],
+      "HasConstructorArgs": [ "point", "distCoef" ]
+    },
+    {
+      "RenameClassNameTo": "UserInterfaceClass",
+      "HasEvents": [ "OnScreenChanged" ],
+      "HasMethods": [ "ReleaseScreen", "RegisterScreen", "CloseAllScreensForced" ]
+    },
+    {
+      "RenameClassNameTo": "AICoreControllerClass",
+      "HasMethods": [ "AddNodeController", "RemoveNodeController", "ListAgents" ]
+    },
+    {
+      "RenameClassNameTo": "InsuranceCompanyClass",
+      "HasMethods": [ "ClearInsuredItems", "RegisterInsuredItems" ]
+    },
+    {
+      "RenameClassNameTo": "ItemClass",
+      "HasFields": [ "InsurerId" ],
+      "HasMethods": [ "SetParent", "UpdateFromAnotherItem" ],
+      "HasMethodsStatic": [ "FindOrCreate" ]
+    },
+    {
+      "RenameClassNameTo": "IBallisticsCalculator",
+      "IsInterface": true,
+      "HasMethods": [ "SetSubInteractions" ]
+    },
+    {
+      "RenameClassNameTo": "IInputTree",
+      "IsInterface": true,
+      "HasMethods": [ "EnergyGenerationChanged" ]
+    },
+    // This seems wrong. Take it up with Chomp
+    //{
+    //  "RenameClassNameTo": "MovementContextClass",
+    //  "IsInterface": true,
+    //  "HasMethods": [ "EnergyGenerationChanged" ]
+    //},
+    {
+      "RenameClassNameTo": "RagfairSettingsClass",
+      "IsClass": true,
+      "HasFields": [ "maxActiveOfferCount", "SellInOnePiece" ]
     },
     {
       "RenameClassNameTo": "JobPriority",
@@ -112,9 +442,29 @@
       "HasMethods": [ "GetPositionForSearch", "SetSuppressEndTime", "IsSuppressed" ]
     },
     {
+      "RenameClassNameTo": "BossSpawnerClass",
+      "HasMethods": [ "InitBossSpawnDebug", "Spawn" ],
+      "HasConstructorArgs": [ "spawnSystem", "spawner", "botCreator", "allZones" ]
+    },
+    {
+      "RenameClassNameTo": "ZoneLeaveControllerClass",
+      "IsClass": true,
+      "HasMethods": [ "SetMaxBots", "IsZoneBlockFor", "BotSpawned" ]
+    },
+    {
+      "RenameClassNameTo": "BotsClass",
+      "IsClass": true,
+      "HasMethods": [ "GetListByZone", "GetOtherSideRule", "GetEnemiesBySettings", "AddFromList", "Add", "Remove", "RemovePlayer" ]
+    },
+    {
       "RenameClassNameTo": "BotsPresets",
       "HasFields": [ "BundlesLoading" ],
       "HasMethods": [ "GetNewProfile", "CreateProfile" ]
+    },
+    {
+      "RenameClassNameTo": "ProfileDataClass",
+      "HasConstructorArgs": [ "side" ],
+      "HasMethods": [ "TryGetRole", "ChooseProfile", "IsZeroWave", "IsBossOrFollower", "IsSpawnOnStart", "CanAtZoneByType" ]
     },
     {
       "RenameClassNameTo": "IConnectionHandler",
@@ -186,7 +536,6 @@
     {
       "RenameClassNameTo": "BotSettingsValuesClass",
       "HasFields": [ "IsBoss", "IsFollower", "IsHostileToEverybody", "CountAsBoss", "ScavRoleKey", "PhraseTag" ]
-
     },
     {
       "RenameClassNameTo": "IBotController",
@@ -270,8 +619,8 @@
       "IsStruct": true,
       "HasConstructorArgs": [ "action", "reason" ],
       "HasFields": [ "Action", "Reason" ]
-
     },
+
     //,
     //{
     //  "RenameClassNameTo": "LootItemPositionClass",
@@ -283,7 +632,12 @@
     // This is auto remapped to BtrController
     "GClass2911": "BTRControllerClass",
     */
-
+    {
+      "RenameClassNameTo": "BTRControllerClass",
+      "IsClass": true,
+      "IsSealed": true,
+      "HasFields": [ "btrvehicle_0", "btrview_0" ]
+    },
     // "GStruct378": "BTRDataPacket",
     {
       "RenameClassNameTo": "BTRDataPacket",
@@ -295,44 +649,94 @@
     // This is auto remapped to InteractWithBtrPacket
     //"GStruct167": "PlayerInteractPacket",
 
-    //"GClass3252": "AchievementDataClass",
+    //"GClass3260": "AchievementDataClass",
     {
       "RenameClassNameTo": "AchievementDataClass",
       "IsClass": true,
       "HasFields": [ "GlobalProgressPercent" ],
       "HasConstructorArgs": [ "tid", "unlockDate", "globalProgressPercent", "status" ]
     },
-    //"GClass3207": "AchievementControllerClass",
+    //"GClass3215": "AchievementControllerClass",
     {
       "RenameClassNameTo": "AchievementControllerClass",
       "IsClass": true,
       "IsSealed": true,
       "MustBeGClass": true,
-      "InheritsClass": "AbstractAchievementsController1",
+      "HasMethods": [ "InitConditionsConnectorsManager", "SetConditionalStatus" ],
       "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ]
-    }
+    },
     // This is auto remapped to BufferZoneController
-    //"GClass2948": "BufferZoneControllerClass",
-
-    //"GClass1854": "GetActionsClass",
-
+    //"GClass2954": "BufferZoneControllerClass",
+    {
+      "RenameClassNameTo": "BufferZoneControllerClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethods": [ "ShowAlreadyHaveCustomersNotification", "ShowGateNotAvailableNotification" ]
+    },
+    //"GClass1859": "GetActionsClass",
+    {
+      "RenameClassNameTo": "GetActionsClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethodsStatic": [ "GetAvailableActions", "GetAvailableHideoutActions" ]
+    },
     // This is auto remapped to AbstractQuestController
-    //"GClass3201": "AbstractQuestControllerClass",
+    //"GClass3209": "AbstractQuestControllerClass",
+    {
+      "RenameClassNameTo": "AbstractQuestControllerClass",
+      "IsAbstract": true,
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Quests" ],
+      "HasMethodsVirtual": [ "TryExecuteTransition" ]
+    },
 
     // This is auto remapped to AbstractAchievementController
-    //"GClass3205": "AbstractAchievementControllerClass",
-
+    //"GClass3213": "AbstractAchievementControllerClass",
+    {
+      "RenameClassNameTo": "AbstractAchievementControllerClass",
+      "IsAbstract": true,
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "AchievementsBook" ],
+      "HasMethods": [ "OnConditionalStatusChangedEvent", "CreateConditionalList", "Dispose" ]
+    },
     // This is auto remapped to Request1
     //"GStruct21": "LegacyParamsStruct",
 
     // This is auto remapped to HalloweenEventController
-    //"GClass1476": "HalloweenEventControllerClass",
-
+    //"GClass1481": "HalloweenEventControllerClass",
+    {
+      "RenameClassNameTo": "HalloweenEventControllerClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "halloweenEventVisual_0" ]
+    },
     // This is auto remapped to ImprovementController
-    //"GClass1907": "ImprovementControllerClass",
-
+    //"GClass1912": "ImprovementControllerClass",
+    {
+      "RenameClassNameTo": "ImprovementControllerClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethods": [ "SetImprovements", "SetImprovementDataset", "UpdateImprovements" ]
+    },
     // This is auto remapped to Achievement1
-    //"GClass1248": "AchievementModelClass"
+    //"GClass1248": "AchievementModelClass",
+
+
+    // This is stuff that is not on Aki's list
+    {
+      "RenameClassNameTo": "IGetProfileData",
+      "IsInterface": true,
+      "HasFields": [ "Side", "SpawnParams" ],
+      "HasMethods": [ "TryGetRole", "ChooseProfile", "PrepareToLoadBackend", "IsValidSpawnType", "GetDebugLocalName", "GetDebugData", "ShallChooseByData", "IsBossOrFollowerByTime" ]
+    },
+    {
+      "RenameClassNameTo": "IPlayer",
+      "IsInterface": true,
+      "HasFields": [ "AIData", "IsYourPlayer", "PlayerBones", "AccountId", "ProfileId", "MainParts", "IsAI", "Loyalty", "IsVisibleToCamera", "Profile", "HealthController", "WeaponRoot" ],
+      "HasMethods": [ "HandleFlareSuccessEvent", "SetInteractInHands" ]
+    }
   ],
   "DefinedTypesToForcePublic": [
   ],
@@ -340,7 +744,7 @@
   ],
   "TypesToForceAllPublicFieldsAndProperties": [
   ],
-  //"EnableAddSPTUsecBearToDll": false,
+  "EnableForceAllTypesPublic": true,
   "EnumAdditions": [
     {
       "type": "EFT.WildSpawnType",
