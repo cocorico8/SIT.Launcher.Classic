@@ -1,8 +1,8 @@
 {
   // Enable/Disable the Automatic System of Remapping via Code
-  "EnableAutomaticRemapping": false,
+  "AutomaticRemapping": "Test",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": true,
+  "EnableDefinedRemapping": "Test",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SIT Remapping List
@@ -117,7 +117,8 @@
       "HasMethodsStatic": [ "CreateFromLegacyParams" ]
     },
     {
-      "RenameClassNameTo": "TarkovRequestParams",
+      //"RenameClassNameTo": "TarkovRequestParams",
+      "RenameClassNameTo": "LegacyParamsStruct", // Use Aki's naming convention here
       "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
     },
     //
@@ -314,8 +315,7 @@
     {
       "RenameClassNameTo": "QuestController",
       "IsClass": true,
-      "HasEvents": [ "OnNewQuestsAdded" ],
-      "HasMethods": [ "AcceptQuest", "CreateConditionalList", "Dispose", "FinishQuest", "FinishQuest" ]
+      "HasMethods": [ "InitConditionsConnectorsManager", "AcceptQuest", "FinishQuest", "HandoverItem", "QuestConditionValueChanged", "SetConditionalStatus" ]
     }
 
   ],

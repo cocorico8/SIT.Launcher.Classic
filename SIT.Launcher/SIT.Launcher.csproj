@@ -420,9 +420,6 @@
     <None Update="DeObfus\mappings\Aki\AkiRemapperConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DeObfus\mappings\AutoRemapperConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="DeObfus\mappings\SIT\SITRemapperConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

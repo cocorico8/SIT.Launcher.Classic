@@ -1,8 +1,8 @@
 {
   // Enable/Disable the Automatic System of Remapping via Code
-  "EnableAutomaticRemapping": false,
+  "AutomaticRemapping": "None",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": true,
+  "EnableDefinedRemapping": "Remap",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SPT-Aki Remapping List
@@ -703,6 +703,10 @@
     },
     // This is auto remapped to Request1
     //"GStruct21": "LegacyParamsStruct",
+    {
+      "RenameClassNameTo": "LegacyParamsStruct",
+      "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
+    },
 
     // This is auto remapped to HalloweenEventController
     //"GClass1481": "HalloweenEventControllerClass",

@@ -237,14 +237,15 @@ namespace SIT.Launcher
                 }
             }
 
-
+            // if the original assembly-csharp doesnt exist, false
             var officialAssemblyCSharpPath = new FileInfo(Path.Combine(Directory.GetParent(EFTGameChecker.FindOfficialGame().FullName).FullName, "EscapeFromTarkov_Data", "Managed", "Assembly-CSharp.dll"));
             if (!officialAssemblyCSharpPath.Exists)
                 return false;
 
+            // if the offline assembly-csharp doesn't exist, run update
             var offlineAssemblyCSharpPath = new FileInfo(Path.Combine(Directory.GetParent(Config.InstallLocationEFT).FullName, "EscapeFromTarkov_Data", "Managed", "Assembly-CSharp.dll"));
             if (!offlineAssemblyCSharpPath.Exists)
-                return false;
+                return true;
 
             var officialIsUpdated = officialAssemblyCSharpPath.CreationTime > offlineAssemblyCSharpPath.LastWriteTime; 
             return officialIsUpdated;
