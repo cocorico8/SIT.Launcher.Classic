@@ -662,8 +662,9 @@
       "IsClass": true,
       "IsSealed": true,
       "MustBeGClass": true,
-      "HasMethods": [ "InitConditionsConnectorsManager", "SetConditionalStatus" ],
-      "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ]
+      "HasMethods": [ "InitConditionsConnectorsManager", "FinishAchievement", "SetConditionalStatus" ],
+      "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ],
+      "ExactDeclaredMethodCount": 3
     },
     // This is auto remapped to BufferZoneController
     //"GClass2954": "BufferZoneControllerClass",

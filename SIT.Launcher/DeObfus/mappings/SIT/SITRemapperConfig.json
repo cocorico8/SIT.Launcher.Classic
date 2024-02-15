@@ -261,7 +261,9 @@
       "RenameClassNameTo": "AbstractInventoryOperation",
       "IsClass": true,
       "IsAbstract": true,
+      "HasConstructorArgs": [ "id", "controller" ],
       "HasFields": [ "commandStatus_0" ],
+      "HasMethods": [ "vmethod_0", "Dispose" ],
       "ConvertInternalMethodsToPublic": true
     },
     {
@@ -272,22 +274,29 @@
     {
       "RenameClassNameTo": "AbstractInventoryOperation2",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation",
+      "IsAbstract": true,
+      //"InheritsClass": "AbstractInventoryOperation",
       "HasFields": [ "Item", "DestroysMainItem", "DestroyedItems" ],
       "HasConstructorArgs": [ "id", "controller", "destroyedItems" ],
       "ConvertInternalMethodsToPublic": true
+      //"ExactDeclaredMethodCount": 0,
+      //"ExactDeclaredFieldCount": 3
     },
     {
       "RenameClassNameTo": "MoveInternalOperation",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation2",
+      "HasFields": [ "Item", "DestroysMainItem" ],
+      "HasConstructorArgs": [ "id", "controller", "item", "to", "destroyedItems" ],
+      "HasMethods": [ "vmethod_0", "Dispose" ],
+      //"InheritsClass": "AbstractInventoryOperation2",
       "ConvertInternalMethodsToPublic": true
     },
     {
-      "RenameClassNameTo": "AmmoManipulationOperation",
+      "RenameClassNameTo": "AbstractAmmoManipulationOperation",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation",
-      "HasMethods": [ "SucceedAmmoManipulationHandler" ],
+      "IsAbstract": true,
+      "HasConstructorArgs": [ "id", "controller", "internalOperation" ],
+      "HasMethods": [ "SucceedAmmoManipulationHandler", "Dispose", "vmethod_0" ],
       "ConvertInternalMethodsToPublic": true
     },
     {
@@ -316,7 +325,19 @@
       "RenameClassNameTo": "QuestController",
       "IsClass": true,
       "HasMethods": [ "InitConditionsConnectorsManager", "AcceptQuest", "FinishQuest", "HandoverItem", "QuestConditionValueChanged", "SetConditionalStatus" ]
+    },
+    {
+      "RenameClassNameTo": "BackendRequests",
+      "IsClass": true,
+      "HasMethods": [ "RegisterProfileUpdater", "LoadLocationLoot" ]
+    },
+    {
+      "RenameClassNameTo": "PhysicalStamina",
+      "IsStruct": true,
+      "HasFields": [ "StaminaExhausted", "OxygenExhausted", "HandsExhausted" ],
+      "HasMethods": [ "Equals" ]
     }
+
 
   ],
   "DefinedTypesToForcePublic": [
