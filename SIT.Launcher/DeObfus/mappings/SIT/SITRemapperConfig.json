@@ -1,8 +1,8 @@
 {
-  // Enable/Disable the Automatic System of Remapping via Code
-  "AutomaticRemapping": "Test",
+  // "None"/"Test" - create .cs of remappings /"Remap" - do the remap to the Assembly the Automatic System of Remapping via Code
+  "AutomaticRemapping": "Remap",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": "Test",
+  "EnableDefinedRemapping": "Remap",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SIT Remapping List
@@ -22,7 +22,9 @@
     },
     {
       "RenameClassNameTo": "InteractionResult",
-      "HasFields": [ "InteractionType" ]
+      "HasFields": [ "InteractionType" ],
+      "HasConstructorArgs": [ "interactionType" ]
+
     },
     {
       "RenameClassNameTo": "GridItemAddress",
@@ -31,7 +33,7 @@
     },
     {
       "RenameClassNameTo": "UnderbarrelWeapon",
-      "HasFields": [ "Chambers", "UseAmmoWithoutShell" ],
+      "HasFields": [ "UseAmmoWithoutShell" ],
       "HasMethods": [ "GetBarrelDeviation" ]
     },
     {
@@ -73,11 +75,11 @@
       "IsClass": true,
       "HasMethods": [ "FilterCustomization" ]
     },
-    {
-      "RenameClassNameTo": "AStatisticsManager",
-      "IsClass": true,
-      "HasMethodsVirtual": [ "BeginStatisticsSession", "ExperienceGained", "LogDamage", "OnBodyPartRestored", "OnBodyPartRestored", "OnHealthChanged" ]
-    },
+    //{
+    //  "RenameClassNameTo": "AStatisticsManager",
+    //  "IsClass": true,
+    //  "HasMethodsVirtual": [ "BeginStatisticsSession", "ExperienceGained", "LogDamage", "OnBodyPartRestored", "OnBodyPartRestored", "OnHealthChanged" ]
+    //},
     {
       "RenameClassNameTo": "AStatisticsManagerForPlayer",
       "IsClass": true,
@@ -116,11 +118,11 @@
       "HasFields": [ "RequestId", "ProtocolType", "Crc", "CachedResponse", "CacheValidationConfigured", "Data", "MainURLFull" ],
       "HasMethodsStatic": [ "CreateFromLegacyParams" ]
     },
-    {
-      //"RenameClassNameTo": "TarkovRequestParams",
-      "RenameClassNameTo": "LegacyParamsStruct", // Use Aki's naming convention here
-      "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
-    },
+    //{
+    //  //"RenameClassNameTo": "TarkovRequestParams",
+    //  "RenameClassNameTo": "LegacyParamsStruct", // Use Aki's naming convention here
+    //  "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
+    //},
     //
     // -----------------------------------------
     {
@@ -322,7 +324,7 @@
       "HasMethodsStatic": [ "ConvertToMovementDirection" ]
     },
     {
-      "RenameClassNameTo": "QuestController",
+      "RenameClassNameTo": "QuestControllerSIT",
       "IsClass": true,
       "HasMethods": [ "InitConditionsConnectorsManager", "AcceptQuest", "FinishQuest", "HandoverItem", "QuestConditionValueChanged", "SetConditionalStatus" ]
     },
@@ -336,6 +338,20 @@
       "IsStruct": true,
       "HasFields": [ "StaminaExhausted", "OxygenExhausted", "HandsExhausted" ],
       "HasMethods": [ "Equals" ]
+    },
+    {
+      "RenameClassNameTo": "TradingBackend",
+      "IsClass": true,
+      "HasFields": [ "QueueStatus" ],
+      "HasMethods": [ "TrySendCommands" ]
+    },
+    {
+      "RenameClassNameTo": "AbstractDescriptor1",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "OperationId" ],
+      "HasMethods": [ "ToString", "Clone" ],
+      "ExactDeclaredFieldCount": 1
     }
 
 
@@ -344,9 +360,11 @@
     "BodyPartState",
     "AHealthController/BodyPartState",
     "EFT.Player/PlayerInventoryController",
+    "EFT.Player+PlayerInventoryController",
     "EFT.Player/PlayerOwnerInventoryController",
     "EFT.Player/SinglePlayerInventoryController",
     "EFT.Player/EmptyHandsController",
+    "TraderControllerClass",
     "EasyBundle",
     "ProfileChangeHandler"
   ],
@@ -354,7 +372,8 @@
     "EFT.BaseLocalGame",
     "EFT.Player",
     "ItemController",
-    "AbstractInventoryOperation"
+    "AbstractInventoryOperation",
+    "TraderControllerClass"
   ],
   "TypesToForceAllPublicFieldsAndProperties": [
     "BaseLocalGame",
@@ -364,9 +383,6 @@
     "AbstractInventoryOperation",
     "MoveInternalOperation",
     "FoldOperation"
-  ],
-  "AutoRemapTypeExcemptions": [
-
   ],
   "AutoRemapDescriptors": true
 }
