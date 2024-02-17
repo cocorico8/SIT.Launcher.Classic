@@ -10,6 +10,12 @@
       "RenameClassNameTo": "BattleeyePatchClass",
       "HasMethods": [ "RunValidation" ]
     },
+    //"Class907": "SslCertPatchClass",
+    {
+      "RenameClassNameTo": "SslCertPatchClass",
+      "HasFields": [ "string_0" ],
+      "HasMethods": [ "ValidateCertificate" ]
+    },
     // "GClass1216": "LocationSettingsClass",
     {
       "RenameClassNameTo": "LocationSettingsClass",
@@ -743,13 +749,7 @@
       "HasMethods": [ "HandleFlareSuccessEvent", "SetInteractInHands" ]
     }
   ],
-  "DefinedTypesToForcePublic": [
-  ],
-  "TypesToForceAllPublicMethods": [
-  ],
-  "TypesToForceAllPublicFieldsAndProperties": [
-  ],
-  "EnableForceAllTypesPublic": true,
+  "EnableForceAllTypesPublic": false,
   "EnumAdditions": [
     {
       "type": "EFT.WildSpawnType",
