@@ -24,7 +24,7 @@
     {
       "RenameClassNameTo": "BotMemoryClass",
       "HasMethods": [ "LoseVisionCurrentEnemy", "ComeToPoint", "AddEnemy" ]
-    },
+    }, 
     {
       "RenameClassNameTo": "BackendConfigSettingsClass",
       "HasFields": [ "StaminaDrain", "StaminaRestoration", "Stamina", "Mastering", "SkillsSettings" ]
@@ -446,6 +446,11 @@
       "RenameClassNameTo": "BotSettingsClass",
       "HasFields": [ "IsLastPositionChecked", "LastChangeVisionTime" ],
       "HasMethods": [ "GetPositionForSearch", "SetSuppressEndTime", "IsSuppressed" ]
+    },
+    {
+      "RenameClassNameTo": "ScatteringSettingsClass",
+      "HasFields": [ "BotLocationModifier", "_CurvSettings" ],
+      "HasMethods": [ "SetSettings", "GetSettings" ]
     },
     {
       "RenameClassNameTo": "BossSpawnerClass",
