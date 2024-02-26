@@ -366,7 +366,8 @@
     "EFT.Player/EmptyHandsController",
     "TraderControllerClass",
     "EasyBundle",
-    "ProfileChangeHandler"
+    "ProfileChangeHandler",
+    "TarkovApplication"
   ],
   "TypesToForceAllPublicMethods": [
     "EFT.BaseLocalGame",
