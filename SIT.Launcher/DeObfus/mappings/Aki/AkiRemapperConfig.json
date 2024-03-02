@@ -24,7 +24,7 @@
     {
       "RenameClassNameTo": "BotMemoryClass",
       "HasMethods": [ "LoseVisionCurrentEnemy", "ComeToPoint", "AddEnemy" ]
-    }, 
+    },
     {
       "RenameClassNameTo": "BackendConfigSettingsClass",
       "HasFields": [ "StaminaDrain", "StaminaRestoration", "Stamina", "Mastering", "SkillsSettings" ]
@@ -736,9 +736,23 @@
       "MustBeGClass": true,
       "HasMethods": [ "SetImprovements", "SetImprovementDataset", "UpdateImprovements" ]
     },
+    // This is auto remapped to MatchmakerPlayersController
+    //{
+    //  "RenameClassNameTo": "MatchmakerPlayerControllerClass",
+    //  "IsClass": true,
+    //  "MustBeGClass": true,
+    //  "HasEvents": [ "OnReadyToStartRaid" ],
+    //  "HasMethods": [ "CreateRaidPlayerInfo", "NotificationReceivedHandler", "ShowInviteInRaidWindow", "GetContextInteractions", "OpenPlayerProfile" ]
+    //},
     // This is auto remapped to Achievement1
-    //"GClass1248": "AchievementModelClass",
-
+    //"GClass1251": "AchievementClass",
+    {
+      "RenameClassNameTo": "AchievementClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Template", "StatusData" ],
+      "HasMethods": [ "Initialize", "SetStatus", "CheckForStatusChange", "LoadSprite", "Reset" ]
+    },
 
     // This is stuff that is not on Aki's list
     {
