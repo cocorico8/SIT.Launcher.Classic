@@ -36,13 +36,6 @@
       "HasFields": [ "UseAmmoWithoutShell" ],
       "HasMethods": [ "GetBarrelDeviation" ]
     },
-    {
-      "RenameClassNameTo": "MagazineTemplate",
-      // As MagazineClass and the MagazineTemplate are so close in fields, only find the first GClass version
-      "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "Cartridges", "LoadUnloadModifier", "CheckTimeModifier", "CheckOverride", "ReloadMagType" ]
-    },
     // Rename the main Backend Server Connection that sends/receives to the Backend Server
     {
       "RenameClassNameTo": "BackendServerConnection",
@@ -55,8 +48,14 @@
     {
       "RenameClassNameTo": "SquadPlayer",
       "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
+      "HasFields": [ "LookingForGroup", "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
+    },
+    // Squad Player Info
+    {
+      "RenameClassNameTo": "SquadPlayerInfo",
+      "OnlyRemapFirstFoundType": true,
+      "HasFields": [ "Nickname", "Side", "Level", "MemberCategory", "SavageLockTime", "SavageNickname", "GameVersion", "HasCoopExtension", "CorrectedNickname" ],
+      "HasMethodsStatic": [ "GetFromChatMemberInfo" ]
     },
     // 13.0.3 Squad Grouping
     {
@@ -135,11 +134,12 @@
       "RenameClassNameTo": "GridContainer",
       "HasMethods": [ "AddItem", "AddItemWithoutRestrictions", "FindAll", "GetItemsForPlayer", "GetKnownItems", "GetSearchableInfo", "GetUnknownItems", "RemoveItem", "SetKnownItems", "SetSearched" ]
     },
-    {
-      "RenameClassNameTo": "FoodDrink",
-      "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
-      "HasMethods": []
-    },
+    // Remove this in favour of Aki mapping
+    //{
+    //  "RenameClassNameTo": "FoodDrink",
+    //  "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
+    //  "HasMethods": []
+    //},
     {
       "RenameClassNameTo": "IThrowableCallback",
       "IsInterface": true,
