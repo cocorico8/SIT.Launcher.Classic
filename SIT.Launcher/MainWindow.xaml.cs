@@ -58,8 +58,9 @@ namespace SIT.Launcher
 
         #region Check Installs
         public bool HasEFTInstalled { get; } = EFTGameChecker.FindOfficialGame() != null;
-        public bool HasArenaInstalled { get; } = ArenaGameFinder.FindOfficialGame() != null;
-        
+        //blocking for people who don't own Arena
+        //public bool HasArenaInstalled { get; } = ArenaGameFinder.FindOfficialGame() != null;
+
         #endregion
 
         #region ReleasesBindings
