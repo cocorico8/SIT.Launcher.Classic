@@ -96,6 +96,11 @@
       "HasFields": [],
       "HasMethodsStatic": [ "LoadApplicationConfig" ]
     },
+    {
+      "RenameClassNameTo": "NotificationLocalization",
+      "IsClass": true,
+      "HasFields": [ "localizationKey_0", "localizationKey_1", "int_0" ]
+    },
 
 
     // -----------------------------------------
