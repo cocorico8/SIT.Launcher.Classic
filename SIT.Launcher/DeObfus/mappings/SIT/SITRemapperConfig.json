@@ -367,14 +367,22 @@
     "TraderControllerClass",
     "EasyBundle",
     "ProfileChangeHandler",
-    "TarkovApplication"
+    "TarkovApplication",
+    "AHealthController`1",
+    "ActiveHealthController",
+    "AbstractHealthController",
+    "PlayerHealthController"
   ],
   "TypesToForceAllPublicMethods": [
     "EFT.BaseLocalGame",
     "EFT.Player",
     "ItemController",
     "AbstractInventoryOperation",
-    "TraderControllerClass"
+    "TraderControllerClass",
+    "AHealthController`1",
+    "ActiveHealthController",
+    "AbstractHealthController",
+    "PlayerHealthController"
   ],
   "TypesToForceAllPublicFieldsAndProperties": [
     "BaseLocalGame",
