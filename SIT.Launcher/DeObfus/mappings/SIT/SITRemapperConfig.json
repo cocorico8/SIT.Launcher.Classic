@@ -357,6 +357,12 @@
       "HasFields": [ "OperationId" ],
       "HasMethods": [ "ToString", "Clone" ],
       "ExactDeclaredFieldCount": 1
+    },
+    {
+      "RenameClassNameTo": "HealthSyncPacket",
+      "IsStruct": true,
+      "HasFields": [ "SyncType", "Data" ],
+      "HasMethods": [ "ToString" ]
     }
 
 
