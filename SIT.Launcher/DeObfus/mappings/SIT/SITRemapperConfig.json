@@ -184,11 +184,11 @@
       "IsClass": true,
       "HasFields": [ "CAMERA_NAME", "effectsController_0", "hideoutCameraFlashlight_0", "highLightMesh_0", "visorEffect_0", "hysteresisFilter_0", "nightVision_0", "thermalVision_0", "gradingPostFX_0" ]
     },
-    {
-      "RenameClassNameTo": "LocalGameBotCreator",
-      "IsClass": true,
-      "HasMethods": [ "FillCreationDataWithProfiles" ]
-    },
+    //{
+    //  "RenameClassNameTo": "LocalGameBotCreator",
+    //  "IsClass": true,
+    //  "HasMethods": [ "FillCreationDataWithProfiles" ]
+    //},
     {
       "RenameClassNameTo": "ItemMovementHandler",
       "IsClass": true,
@@ -367,42 +367,42 @@
 
 
   ],
-  "DefinedTypesToForcePublic": [
-    "BodyPartState",
-    "AHealthController/BodyPartState",
-    "EFT.Player/PlayerInventoryController",
-    "EFT.Player+PlayerInventoryController",
-    "EFT.Player/PlayerOwnerInventoryController",
-    "EFT.Player/SinglePlayerInventoryController",
-    "EFT.Player/EmptyHandsController",
-    "TraderControllerClass",
-    "EasyBundle",
-    "ProfileChangeHandler",
-    "TarkovApplication",
-    "AHealthController`1",
-    "ActiveHealthController",
-    "AbstractHealthController",
-    "PlayerHealthController"
-  ],
-  "TypesToForceAllPublicMethods": [
-    "EFT.BaseLocalGame",
-    "EFT.Player",
-    "ItemController",
-    "AbstractInventoryOperation",
-    "TraderControllerClass",
-    "AHealthController`1",
-    "ActiveHealthController",
-    "AbstractHealthController",
-    "PlayerHealthController"
-  ],
-  "TypesToForceAllPublicFieldsAndProperties": [
-    "BaseLocalGame",
-    "AbstractActiveHealthController"
-  ],
-  "TypesToConvertConstructorsToPublic": [
-    "AbstractInventoryOperation",
-    "MoveInternalOperation",
-    "FoldOperation"
-  ],
+  //"DefinedTypesToForcePublic": [
+  //  "BodyPartState",
+  //  "AHealthController/BodyPartState",
+  //  "EFT.Player/PlayerInventoryController",
+  //  "EFT.Player+PlayerInventoryController",
+  //  "EFT.Player/PlayerOwnerInventoryController",
+  //  "EFT.Player/SinglePlayerInventoryController",
+  //  "EFT.Player/EmptyHandsController",
+  //  "TraderControllerClass",
+  //  "EasyBundle",
+  //  "ProfileChangeHandler",
+  //  "TarkovApplication",
+  //  "AHealthController`1",
+  //  "ActiveHealthController",
+  //  "AbstractHealthController",
+  //  "PlayerHealthController"
+  //],
+  //"TypesToForceAllPublicMethods": [
+  //  "EFT.BaseLocalGame",
+  //  "EFT.Player",
+  //  "ItemController",
+  //  "AbstractInventoryOperation",
+  //  "TraderControllerClass",
+  //  "AHealthController`1",
+  //  "ActiveHealthController",
+  //  "AbstractHealthController",
+  //  "PlayerHealthController"
+  //],
+  //"TypesToForceAllPublicFieldsAndProperties": [
+  //  "BaseLocalGame",
+  //  "AbstractActiveHealthController"
+  //],
+  //"TypesToConvertConstructorsToPublic": [
+  //  "AbstractInventoryOperation",
+  //  "MoveInternalOperation",
+  //  "FoldOperation"
+  //],
   "AutoRemapDescriptors": true
 }

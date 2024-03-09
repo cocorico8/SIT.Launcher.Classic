@@ -469,8 +469,9 @@
     },
     {
       "RenameClassNameTo": "BotsPresets",
-      "HasFields": [ "BundlesLoading" ],
-      "HasMethods": [ "GetNewProfile", "CreateProfile" ]
+      "IsClass": true,
+      // "HasFields": [ "BundlesLoading" ],
+      "HasMethods": [ "FillCreationDataWithProfiles" ]
     },
     {
       "RenameClassNameTo": "ProfileDataClass",
@@ -768,7 +769,7 @@
       "HasMethods": [ "HandleFlareSuccessEvent", "SetInteractInHands" ]
     }
   ],
-  "EnableForceAllTypesPublic": false,
+  "EnableForceAllTypesPublic": true,
   "EnumAdditions": [
     {
       "type": "EFT.WildSpawnType",
