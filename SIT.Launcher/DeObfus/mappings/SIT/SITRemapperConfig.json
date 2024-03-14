@@ -364,45 +364,6 @@
       "HasFields": [ "SyncType", "Data" ],
       "HasMethods": [ "ToString" ]
     }
-
-
   ],
-  //"DefinedTypesToForcePublic": [
-  //  "BodyPartState",
-  //  "AHealthController/BodyPartState",
-  //  "EFT.Player/PlayerInventoryController",
-  //  "EFT.Player+PlayerInventoryController",
-  //  "EFT.Player/PlayerOwnerInventoryController",
-  //  "EFT.Player/SinglePlayerInventoryController",
-  //  "EFT.Player/EmptyHandsController",
-  //  "TraderControllerClass",
-  //  "EasyBundle",
-  //  "ProfileChangeHandler",
-  //  "TarkovApplication",
-  //  "AHealthController`1",
-  //  "ActiveHealthController",
-  //  "AbstractHealthController",
-  //  "PlayerHealthController"
-  //],
-  //"TypesToForceAllPublicMethods": [
-  //  "EFT.BaseLocalGame",
-  //  "EFT.Player",
-  //  "ItemController",
-  //  "AbstractInventoryOperation",
-  //  "TraderControllerClass",
-  //  "AHealthController`1",
-  //  "ActiveHealthController",
-  //  "AbstractHealthController",
-  //  "PlayerHealthController"
-  //],
-  //"TypesToForceAllPublicFieldsAndProperties": [
-  //  "BaseLocalGame",
-  //  "AbstractActiveHealthController"
-  //],
-  //"TypesToConvertConstructorsToPublic": [
-  //  "AbstractInventoryOperation",
-  //  "MoveInternalOperation",
-  //  "FoldOperation"
-  //],
   "AutoRemapDescriptors": true
 }
