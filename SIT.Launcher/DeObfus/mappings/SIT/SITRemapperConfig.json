@@ -313,10 +313,23 @@
       "HasMethods": [ "Reset", "WriteByte", "WriteBytes" ]
     },
     {
+      "RenameClassNameTo": "BSGNetworkWriterExtensions",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethodsStatic": [ "WriteArray", "WriteArraySegment", "WriteBool", "WriteBoolNullable" ]
+    },
+    {
       "RenameClassNameTo": "BSGNetworkReader",
       "IsClass": true,
       "MustBeGClass": true,
       "HasMethods": [ "ReadByte", "ReadBytes" ]
+    },
+    {
+      "RenameClassNameTo": "BSGNetworkReaderExtensions",
+      "IsClass": true,
+      "IsAbstract": true,
+      "MustBeGClass": true,
+      "HasMethodsStatic": [ "ReadByte", "ReadBytes", "ReadSByte", "ReadSByteNullable" ]
     },
     {
       "RenameClassNameTo": "BSGNetworkConversionHelpers",
@@ -363,6 +376,31 @@
       "IsStruct": true,
       "HasFields": [ "SyncType", "Data" ],
       "HasMethods": [ "ToString" ]
+    },
+    {
+      "RenameClassNameTo": "InventorySerializationHelpers",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasMethodsStatic": [ "SerializeInventory", "CloneInventory", "DeserializeInventory", "SerializeNestedItem", "SerializeItem", "SerializeOnlyVisibleEquipment" ]
+    },
+    {
+      "RenameClassNameTo": "ArmorInfo",
+      "IsClass": true,
+      "HasFields": [ "itemID", "armorType", "maxDurability", "durability", "templateDurability", "armorColliders", "armorPlateColliderMask", "ricochetValues", "armorClass", "material", "isComposite", "isToggeldAndOff" ],
+      "HasMethods": [ "ShotMatches" ]
+    },
+    {
+      "RenameClassNameTo": "ASessionCounterManager",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "ExpKillBase" ],
+      "HasMethodsStatic": [ "GetCounter", "Warmup" ]
+    },
+    {
+      "RenameClassNameTo": "BSGMemoryGC",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasMethodsStatic": [ "Collect", "RunHeapPreAllocation" ]
     }
   ],
   "AutoRemapDescriptors": true

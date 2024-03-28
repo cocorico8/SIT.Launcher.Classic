@@ -403,7 +403,7 @@
       "HasMethodsStatic": [ "FindOrCreate" ]
     },
     {
-      "RenameClassNameTo": "IBallisticsCalculator",
+      "RenameClassNameTo": "ISubInteractions",
       "IsInterface": true,
       "HasMethods": [ "SetSubInteractions" ]
     },
@@ -774,12 +774,12 @@
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptUsec",
-      "iValue": 47
+      "iValue": 49
     },
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptBear",
-      "iValue": 48
+      "iValue": 50
     }
   ]
 }
