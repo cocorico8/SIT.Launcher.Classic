@@ -185,12 +185,19 @@ namespace SIT.Launcher
 
         private async Task GetLatestSITRelease()
         {
-            var github = new GitHubClient(new ProductHeaderValue("SIT-Launcher"));
-            var user = await github.User.Get("paulov-t");
-            SITReleases = new ObservableCollection<Release>(await github.Repository.Release.GetAll("stayintarkov", "StayInTarkov.Client", new ApiOptions() { }));
-            SelectedSITRelease = SITReleases.OrderByDescending(x => x.CreatedAt).First();
+            try
+            {
+                var github = new GitHubClient(new ProductHeaderValue("SIT-Launcher"));
+                var user = await github.User.Get("paulov-t");
+                SITReleases = new ObservableCollection<Release>(await github.Repository.Release.GetAll("stayintarkov", "StayInTarkov.Client", new ApiOptions() { }));
+                SelectedSITRelease = SITReleases.OrderByDescending(x => x.CreatedAt).First();
+            }
+            catch (Exception ex)
+            {
 
+            }
         }
+
         public static FlowDocument HtmlToFlowDocument(string text)
         {
             var document = new FlowDocument();
