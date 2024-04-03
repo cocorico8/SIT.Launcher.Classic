@@ -50,13 +50,6 @@
       "OnlyRemapFirstFoundType": true,
       "HasFields": [ "LookingForGroup", "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
     },
-    // Squad Player Info
-    {
-      "RenameClassNameTo": "SquadPlayerInfo",
-      "OnlyRemapFirstFoundType": true,
-      "HasFields": [ "Nickname", "Side", "Level", "MemberCategory", "SavageLockTime", "SavageNickname", "GameVersion", "HasCoopExtension", "CorrectedNickname" ],
-      "HasMethodsStatic": [ "GetFromChatMemberInfo" ]
-    },
     // 13.0.3 Squad Grouping
     {
       "RenameClassNameTo": "SquadGroupRaid",
@@ -74,11 +67,6 @@
       "IsClass": true,
       "HasMethods": [ "FilterCustomization" ]
     },
-    //{
-    //  "RenameClassNameTo": "AStatisticsManager",
-    //  "IsClass": true,
-    //  "HasMethodsVirtual": [ "BeginStatisticsSession", "ExperienceGained", "LogDamage", "OnBodyPartRestored", "OnBodyPartRestored", "OnHealthChanged" ]
-    //},
     {
       "RenameClassNameTo": "AStatisticsManagerForPlayer",
       "IsClass": true,
