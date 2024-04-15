@@ -331,7 +331,8 @@
       "RenameClassNameTo": "FoodClass",
       "HasConstructorArgs": [ "id", "template" ],
       "InheritsClass": "Item",
-      "HasFields": [ "ItemInteractionButtons" ]
+      "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
+      "HasMethods": [ "Compare" ]
     },
     {
       "RenameClassNameTo": "MedsClass",

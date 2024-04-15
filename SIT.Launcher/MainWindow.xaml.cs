@@ -1097,7 +1097,7 @@ namespace SIT.Launcher
         private async Task<bool> Deobfuscate(string exeLocation, bool createBackup = true, bool overwriteExisting = true, bool doRemapping = true)
         {
             var debobfuscator = new PaulovDeobfuscator();
-            PaulovDeobfuscator.Logged.Clear();
+            debobfuscator.Logged.Clear();
             await Dispatcher.InvokeAsync(() =>
             {
                 txtDeobfuscateLog.Text = String.Empty;
@@ -1110,7 +1110,8 @@ namespace SIT.Launcher
             });
             loadingDialog.Update("Deobfuscating", "Deobfuscating");
 
-            var result = await debobfuscator.DeobfuscateAsync(exeLocation, createBackup, overwriteExisting, doRemapping, this);
+            var resultsRenamedClasses = new HashSet<string>();  
+            var result = await debobfuscator.DeobfuscateAsync(exeLocation, resultsRenamedClasses, createBackup, overwriteExisting, doRemapping, this);
             await Dispatcher.InvokeAsync(() =>
             {
                 btnDeobfuscate.IsEnabled = true;
@@ -1180,7 +1181,7 @@ namespace SIT.Launcher
             openFileDialog.Filter = "DLL (Assembly-CSharp)|Assembly-CSharp*.dll;";
             if (openFileDialog.ShowDialog() == true)
             {
-                new PaulovDeobfuscator().DeobfuscateAssembly(openFileDialog.FileName, Directory.GetParent(openFileDialog.FileName).FullName, doRemapping: true);
+                new PaulovDeobfuscator().DeobfuscateAssembly(openFileDialog.FileName, Directory.GetParent(openFileDialog.FileName).FullName, out var resultsRenamedClasses, doRemapping: true);
             }
         }
 

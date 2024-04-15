@@ -1,8 +1,8 @@
 {
   // "None"/"Test" - create .cs of remappings /"Remap" - do the remap to the Assembly the Automatic System of Remapping via Code
-  "AutomaticRemapping": "Remap",
+  "AutomaticRemapping": "Test",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": "Remap",
+  "EnableDefinedRemapping": "Test",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SIT Remapping List
@@ -51,12 +51,12 @@
       "HasFields": [ "LookingForGroup", "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
     },
     // 13.0.3 Squad Grouping
-    {
-      "RenameClassNameTo": "SquadGroupRaid",
-      "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "Players", "RaidSettings" ]
-    },
+    //{
+    //  "RenameClassNameTo": "SquadGroupRaid",
+    //  "OnlyRemapFirstFoundType": true,
+    //  "MustBeGClass": true,
+    //  "HasFields": [ "Players", "RaidSettings" ]
+    //},
     {
       "RenameClassNameTo": "IFilterCustomization",
       "IsInterface": true,
@@ -139,12 +139,12 @@
       "HasFields": [],
       "HasMethods": [ "HighThrow", "LowThrow", "CanThrow" ]
     },
-    {
-      "RenameClassNameTo": "AHealthController",
-      "IsAbstract": true,
-      "IsClass": true,
-      "HasFields": [ "healthValue_0", "healthValue_1", "healthValue_2", "healthValue_3", "dictionary_1" ]
-    },
+    //{
+    //  "RenameClassNameTo": "AHealthController",
+    //  "IsAbstract": true,
+    //  "IsClass": true,
+    //  "HasFields": [ "healthValue_0", "healthValue_1", "healthValue_2", "healthValue_3", "dictionary_1" ]
+    //},
     {
       "RenameClassNameTo": "BossWaveManager",
       "IsClass": true,
@@ -389,6 +389,57 @@
       "IsClass": true,
       "IsAbstract": true,
       "HasMethodsStatic": [ "Collect", "RunHeapPreAllocation" ]
+    },
+    {
+      "RenameClassNameTo": "AHealthController",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "Energy", "Hydration", "Temperature", "Poison", "EnergyRate", "HydrationRate", "TemperatureRate", "DamageCoeff", "StaminaCoeff", "DamageMultiplier", "BodyPartEffects" ],
+      "HasMethods": [ "PauseAllEffects", "UnpauseAllEffects", "RemoveEffectFromList", "AddEffectToList", "GetBodyPartHealth", "IsBodyPartBroken", "IsBodyPartDestroyed" ]
+    },
+    {
+      "RenameClassNameTo": "PhysicalStamina",
+      "IsStruct": true,
+      "HasFields": [ "StaminaExhausted", "OxygenExhausted", "HandsExhausted" ],
+      "HasMethods": [ "Equals" ]
+    },
+    {
+      "RenameClassNameTo": "AbstractEffect",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "Id", "Type", "BodyPart", "State", "CurrentStrength", "Strength", "TimeLeft", "OverallDuration", "WasPaused" ],
+      "HasMethods": [ "Serialize", "Restored", "RegularUpdate" ]
+    },
+    {
+      "RenameClassNameTo": "ProfileHealth",
+      "IsClass": true,
+      "IsNestedInClass": "EFT.Profile",
+      "HasFields": [ "BodyParts" ]
+    },
+    {
+      "RenameClassNameTo": "PlayerLoopSystemHelpers",
+      "IsClass": true,
+      "HasMethodsStatic": [ "FindParentPlayerLoopSystem" ]
+    },
+    {
+      "RenameClassNameTo": "BundleLoaderProgress",
+      "IsClass": true,
+      "HasConstructorArgs": [ "handler", "cancellationToken" ],
+      "HasMethods": [ "Report" ]
+    },
+    {
+      "RenameClassNameTo": "BundleLoaderProgressStruct",
+      "IsStruct": true,
+      "HasFields": [ "Progress", "Stage" ],
+      "ExactDeclaredFieldCount": 2
+    },
+    {
+      "RenameClassNameTo": "ItemsCount",
+      "IsStruct": true,
+      "HasConstructorArgs": [ "item", "numberToDestroy", "numberToPreserve" ],
+      "HasFields": [ "Item", "NumberToDestroy", "NumberToPreserve" ],
+      "HasMethods": [ "Deconstruct" ],
+      "ExactDeclaredFieldCount": 3
     }
   ],
   "AutoRemapDescriptors": true
