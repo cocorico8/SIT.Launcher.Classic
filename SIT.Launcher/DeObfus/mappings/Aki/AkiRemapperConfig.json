@@ -1,14 +1,20 @@
 {
   // Enable/Disable the Automatic System of Remapping via Code
-  "EnableAutomaticRemapping": false,
+  "AutomaticRemapping": "None",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": true,
+  "EnableDefinedRemapping": "Remap",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SPT-Aki Remapping List
     {
       "RenameClassNameTo": "BattleeyePatchClass",
       "HasMethods": [ "RunValidation" ]
+    },
+    //"Class907": "SslCertPatchClass",
+    {
+      "RenameClassNameTo": "SslCertPatchClass",
+      "HasFields": [ "string_0" ],
+      "HasMethods": [ "ValidateCertificate" ]
     },
     // "GClass1216": "LocationSettingsClass",
     {
@@ -325,7 +331,8 @@
       "RenameClassNameTo": "FoodClass",
       "HasConstructorArgs": [ "id", "template" ],
       "InheritsClass": "Item",
-      "HasFields": [ "ItemInteractionButtons" ]
+      "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
+      "HasMethods": [ "Compare" ]
     },
     {
       "RenameClassNameTo": "MedsClass",
@@ -397,7 +404,7 @@
       "HasMethodsStatic": [ "FindOrCreate" ]
     },
     {
-      "RenameClassNameTo": "IBallisticsCalculator",
+      "RenameClassNameTo": "ISubInteractions",
       "IsInterface": true,
       "HasMethods": [ "SetSubInteractions" ]
     },
@@ -442,6 +449,11 @@
       "HasMethods": [ "GetPositionForSearch", "SetSuppressEndTime", "IsSuppressed" ]
     },
     {
+      "RenameClassNameTo": "ScatteringSettingsClass",
+      "HasFields": [ "BotLocationModifier", "_CurvSettings" ],
+      "HasMethods": [ "SetSettings", "GetSettings" ]
+    },
+    {
       "RenameClassNameTo": "BossSpawnerClass",
       "HasMethods": [ "InitBossSpawnDebug", "Spawn" ],
       "HasConstructorArgs": [ "spawnSystem", "spawner", "botCreator", "allZones" ]
@@ -458,8 +470,9 @@
     },
     {
       "RenameClassNameTo": "BotsPresets",
-      "HasFields": [ "BundlesLoading" ],
-      "HasMethods": [ "GetNewProfile", "CreateProfile" ]
+      "IsClass": true,
+      // "HasFields": [ "BundlesLoading" ],
+      "HasMethods": [ "FillCreationDataWithProfiles" ]
     },
     {
       "RenameClassNameTo": "ProfileDataClass",
@@ -662,8 +675,9 @@
       "IsClass": true,
       "IsSealed": true,
       "MustBeGClass": true,
-      "HasMethods": [ "InitConditionsConnectorsManager", "SetConditionalStatus" ],
-      "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ]
+      "HasMethods": [ "InitConditionsConnectorsManager", "FinishAchievement", "SetConditionalStatus" ],
+      "HasConstructorArgs": [ "profile", "inventoryController", "session", "updateAchievements" ],
+      "ExactDeclaredMethodCount": 3
     },
     // This is auto remapped to BufferZoneController
     //"GClass2954": "BufferZoneControllerClass",
@@ -703,6 +717,10 @@
     },
     // This is auto remapped to Request1
     //"GStruct21": "LegacyParamsStruct",
+    {
+      "RenameClassNameTo": "LegacyParamsStruct",
+      "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
+    },
 
     // This is auto remapped to HalloweenEventController
     //"GClass1481": "HalloweenEventControllerClass",
@@ -720,9 +738,23 @@
       "MustBeGClass": true,
       "HasMethods": [ "SetImprovements", "SetImprovementDataset", "UpdateImprovements" ]
     },
+    // This is auto remapped to MatchmakerPlayersController
+    //{
+    //  "RenameClassNameTo": "MatchmakerPlayerControllerClass",
+    //  "IsClass": true,
+    //  "MustBeGClass": true,
+    //  "HasEvents": [ "OnReadyToStartRaid" ],
+    //  "HasMethods": [ "CreateRaidPlayerInfo", "NotificationReceivedHandler", "ShowInviteInRaidWindow", "GetContextInteractions", "OpenPlayerProfile" ]
+    //},
     // This is auto remapped to Achievement1
-    //"GClass1248": "AchievementModelClass",
-
+    //"GClass1251": "AchievementClass",
+    {
+      "RenameClassNameTo": "AchievementClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Template", "StatusData" ],
+      "HasMethods": [ "Initialize", "SetStatus", "CheckForStatusChange", "LoadSprite", "Reset" ]
+    },
 
     // This is stuff that is not on Aki's list
     {
@@ -738,23 +770,17 @@
       "HasMethods": [ "HandleFlareSuccessEvent", "SetInteractInHands" ]
     }
   ],
-  "DefinedTypesToForcePublic": [
-  ],
-  "TypesToForceAllPublicMethods": [
-  ],
-  "TypesToForceAllPublicFieldsAndProperties": [
-  ],
   "EnableForceAllTypesPublic": true,
   "EnumAdditions": [
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptUsec",
-      "iValue": 47
+      "iValue": 49
     },
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptBear",
-      "iValue": 48
+      "iValue": 50
     }
   ]
 }

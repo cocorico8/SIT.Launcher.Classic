@@ -1,8 +1,8 @@
 {
-  // Enable/Disable the Automatic System of Remapping via Code
-  "EnableAutomaticRemapping": false,
+  // "None"/"Test" - create .cs of remappings /"Remap" - do the remap to the Assembly the Automatic System of Remapping via Code
+  "AutomaticRemapping": "Test",
   // Enable/Disable the Defined Mapping list of Remapping - The defined list runs after the Automatic Remap
-  "EnableDefinedRemapping": true,
+  "EnableDefinedRemapping": "Test",
   "DefinedRemapping": [
     // ------------------------------------------------------------------------------------------
     // SIT Remapping List
@@ -22,7 +22,9 @@
     },
     {
       "RenameClassNameTo": "InteractionResult",
-      "HasFields": [ "InteractionType" ]
+      "HasFields": [ "InteractionType" ],
+      "HasConstructorArgs": [ "interactionType" ]
+
     },
     {
       "RenameClassNameTo": "GridItemAddress",
@@ -31,15 +33,8 @@
     },
     {
       "RenameClassNameTo": "UnderbarrelWeapon",
-      "HasFields": [ "Chambers", "UseAmmoWithoutShell" ],
+      "HasFields": [ "UseAmmoWithoutShell" ],
       "HasMethods": [ "GetBarrelDeviation" ]
-    },
-    {
-      "RenameClassNameTo": "MagazineTemplate",
-      // As MagazineClass and the MagazineTemplate are so close in fields, only find the first GClass version
-      "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "Cartridges", "LoadUnloadModifier", "CheckTimeModifier", "CheckOverride", "ReloadMagType" ]
     },
     // Rename the main Backend Server Connection that sends/receives to the Backend Server
     {
@@ -53,16 +48,15 @@
     {
       "RenameClassNameTo": "SquadPlayer",
       "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
+      "HasFields": [ "LookingForGroup", "IsLeader", "IsReady", "Info", "PlayerVisualRepresentation", "AccountId" ]
     },
     // 13.0.3 Squad Grouping
-    {
-      "RenameClassNameTo": "SquadGroupRaid",
-      "OnlyRemapFirstFoundType": true,
-      "MustBeGClass": true,
-      "HasFields": [ "Players", "RaidSettings" ]
-    },
+    //{
+    //  "RenameClassNameTo": "SquadGroupRaid",
+    //  "OnlyRemapFirstFoundType": true,
+    //  "MustBeGClass": true,
+    //  "HasFields": [ "Players", "RaidSettings" ]
+    //},
     {
       "RenameClassNameTo": "IFilterCustomization",
       "IsInterface": true,
@@ -72,11 +66,6 @@
       "RenameClassNameTo": "FilterCustomizationClass",
       "IsClass": true,
       "HasMethods": [ "FilterCustomization" ]
-    },
-    {
-      "RenameClassNameTo": "AStatisticsManager",
-      "IsClass": true,
-      "HasMethodsVirtual": [ "BeginStatisticsSession", "ExperienceGained", "LogDamage", "OnBodyPartRestored", "OnBodyPartRestored", "OnHealthChanged" ]
     },
     {
       "RenameClassNameTo": "AStatisticsManagerForPlayer",
@@ -121,10 +110,11 @@
       "HasFields": [ "RequestId", "ProtocolType", "Crc", "CachedResponse", "CacheValidationConfigured", "Data", "MainURLFull" ],
       "HasMethodsStatic": [ "CreateFromLegacyParams" ]
     },
-    {
-      "RenameClassNameTo": "TarkovRequestParams",
-      "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
-    },
+    //{
+    //  //"RenameClassNameTo": "TarkovRequestParams",
+    //  "RenameClassNameTo": "LegacyParamsStruct", // Use Aki's naming convention here
+    //  "HasFields": [ "Params", "DefaultTimeoutSeconds", "NoRetries", "FirstCycleDelaySeconds", "SecondCycleDelaySeconds", "NextCycleDelaySeconds", "DefaultRetries", "MaximumRetries" ]
+    //},
     //
     // -----------------------------------------
     {
@@ -137,23 +127,24 @@
       "RenameClassNameTo": "GridContainer",
       "HasMethods": [ "AddItem", "AddItemWithoutRestrictions", "FindAll", "GetItemsForPlayer", "GetKnownItems", "GetSearchableInfo", "GetUnknownItems", "RemoveItem", "SetKnownItems", "SetSearched" ]
     },
-    {
-      "RenameClassNameTo": "FoodDrink",
-      "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
-      "HasMethods": []
-    },
+    // Remove this in favour of Aki mapping
+    //{
+    //  "RenameClassNameTo": "FoodDrink",
+    //  "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
+    //  "HasMethods": []
+    //},
     {
       "RenameClassNameTo": "IThrowableCallback",
       "IsInterface": true,
       "HasFields": [],
       "HasMethods": [ "HighThrow", "LowThrow", "CanThrow" ]
     },
-    {
-      "RenameClassNameTo": "AHealthController",
-      "IsAbstract": true,
-      "IsClass": true,
-      "HasFields": [ "healthValue_0", "healthValue_1", "healthValue_2", "healthValue_3", "dictionary_1" ]
-    },
+    //{
+    //  "RenameClassNameTo": "AHealthController",
+    //  "IsAbstract": true,
+    //  "IsClass": true,
+    //  "HasFields": [ "healthValue_0", "healthValue_1", "healthValue_2", "healthValue_3", "dictionary_1" ]
+    //},
     {
       "RenameClassNameTo": "BossWaveManager",
       "IsClass": true,
@@ -181,11 +172,11 @@
       "IsClass": true,
       "HasFields": [ "CAMERA_NAME", "effectsController_0", "hideoutCameraFlashlight_0", "highLightMesh_0", "visorEffect_0", "hysteresisFilter_0", "nightVision_0", "thermalVision_0", "gradingPostFX_0" ]
     },
-    {
-      "RenameClassNameTo": "LocalGameBotCreator",
-      "IsClass": true,
-      "HasMethods": [ "FillCreationDataWithProfiles" ]
-    },
+    //{
+    //  "RenameClassNameTo": "LocalGameBotCreator",
+    //  "IsClass": true,
+    //  "HasMethods": [ "FillCreationDataWithProfiles" ]
+    //},
     {
       "RenameClassNameTo": "ItemMovementHandler",
       "IsClass": true,
@@ -265,7 +256,9 @@
       "RenameClassNameTo": "AbstractInventoryOperation",
       "IsClass": true,
       "IsAbstract": true,
+      "HasConstructorArgs": [ "id", "controller" ],
       "HasFields": [ "commandStatus_0" ],
+      "HasMethods": [ "vmethod_0", "Dispose" ],
       "ConvertInternalMethodsToPublic": true
     },
     {
@@ -276,22 +269,29 @@
     {
       "RenameClassNameTo": "AbstractInventoryOperation2",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation",
+      "IsAbstract": true,
+      //"InheritsClass": "AbstractInventoryOperation",
       "HasFields": [ "Item", "DestroysMainItem", "DestroyedItems" ],
       "HasConstructorArgs": [ "id", "controller", "destroyedItems" ],
       "ConvertInternalMethodsToPublic": true
+      //"ExactDeclaredMethodCount": 0,
+      //"ExactDeclaredFieldCount": 3
     },
     {
       "RenameClassNameTo": "MoveInternalOperation",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation2",
+      "HasFields": [ "Item", "DestroysMainItem" ],
+      "HasConstructorArgs": [ "id", "controller", "item", "to", "destroyedItems" ],
+      "HasMethods": [ "vmethod_0", "Dispose" ],
+      //"InheritsClass": "AbstractInventoryOperation2",
       "ConvertInternalMethodsToPublic": true
     },
     {
-      "RenameClassNameTo": "AmmoManipulationOperation",
+      "RenameClassNameTo": "AbstractAmmoManipulationOperation",
       "IsClass": true,
-      "InheritsClass": "AbstractInventoryOperation",
-      "HasMethods": [ "SucceedAmmoManipulationHandler" ],
+      "IsAbstract": true,
+      "HasConstructorArgs": [ "id", "controller", "internalOperation" ],
+      "HasMethods": [ "SucceedAmmoManipulationHandler", "Dispose", "vmethod_0" ],
       "ConvertInternalMethodsToPublic": true
     },
     {
@@ -301,10 +301,23 @@
       "HasMethods": [ "Reset", "WriteByte", "WriteBytes" ]
     },
     {
+      "RenameClassNameTo": "BSGNetworkWriterExtensions",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasMethodsStatic": [ "WriteArray", "WriteArraySegment", "WriteBool", "WriteBoolNullable" ]
+    },
+    {
       "RenameClassNameTo": "BSGNetworkReader",
       "IsClass": true,
       "MustBeGClass": true,
       "HasMethods": [ "ReadByte", "ReadBytes" ]
+    },
+    {
+      "RenameClassNameTo": "BSGNetworkReaderExtensions",
+      "IsClass": true,
+      "IsAbstract": true,
+      "MustBeGClass": true,
+      "HasMethodsStatic": [ "ReadByte", "ReadBytes", "ReadSByte", "ReadSByteNullable" ]
     },
     {
       "RenameClassNameTo": "BSGNetworkConversionHelpers",
@@ -317,40 +330,117 @@
       "HasMethodsStatic": [ "ConvertToMovementDirection" ]
     },
     {
-      "RenameClassNameTo": "QuestController",
+      "RenameClassNameTo": "QuestControllerSIT",
       "IsClass": true,
-      "HasEvents": [ "OnNewQuestsAdded" ],
-      "HasMethods": [ "AcceptQuest", "CreateConditionalList", "Dispose", "FinishQuest", "FinishQuest" ]
+      "HasMethods": [ "InitConditionsConnectorsManager", "AcceptQuest", "FinishQuest", "HandoverItem", "QuestConditionValueChanged", "SetConditionalStatus" ]
+    },
+    {
+      "RenameClassNameTo": "BackendRequests",
+      "IsClass": true,
+      "HasMethods": [ "RegisterProfileUpdater", "LoadLocationLoot" ]
+    },
+    {
+      "RenameClassNameTo": "PhysicalStamina",
+      "IsStruct": true,
+      "HasFields": [ "StaminaExhausted", "OxygenExhausted", "HandsExhausted" ],
+      "HasMethods": [ "Equals" ]
+    },
+    {
+      "RenameClassNameTo": "TradingBackend",
+      "IsClass": true,
+      "HasFields": [ "QueueStatus" ],
+      "HasMethods": [ "TrySendCommands" ]
+    },
+    {
+      "RenameClassNameTo": "AbstractDescriptor1",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "OperationId" ],
+      "HasMethods": [ "ToString", "Clone" ],
+      "ExactDeclaredFieldCount": 1
+    },
+    {
+      "RenameClassNameTo": "HealthSyncPacket",
+      "IsStruct": true,
+      "HasFields": [ "SyncType", "Data" ],
+      "HasMethods": [ "ToString" ]
+    },
+    {
+      "RenameClassNameTo": "InventorySerializationHelpers",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasMethodsStatic": [ "SerializeInventory", "CloneInventory", "DeserializeInventory", "SerializeNestedItem", "SerializeItem", "SerializeOnlyVisibleEquipment" ]
+    },
+    {
+      "RenameClassNameTo": "ArmorInfo",
+      "IsClass": true,
+      "HasFields": [ "itemID", "armorType", "maxDurability", "durability", "templateDurability", "armorColliders", "armorPlateColliderMask", "ricochetValues", "armorClass", "material", "isComposite", "isToggeldAndOff" ],
+      "HasMethods": [ "ShotMatches" ]
+    },
+    {
+      "RenameClassNameTo": "ASessionCounterManager",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "ExpKillBase" ],
+      "HasMethodsStatic": [ "GetCounter", "Warmup" ]
+    },
+    {
+      "RenameClassNameTo": "BSGMemoryGC",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasMethodsStatic": [ "Collect", "RunHeapPreAllocation" ]
+    },
+    {
+      "RenameClassNameTo": "AHealthController",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "Energy", "Hydration", "Temperature", "Poison", "EnergyRate", "HydrationRate", "TemperatureRate", "DamageCoeff", "StaminaCoeff", "DamageMultiplier", "BodyPartEffects" ],
+      "HasMethods": [ "PauseAllEffects", "UnpauseAllEffects", "RemoveEffectFromList", "AddEffectToList", "GetBodyPartHealth", "IsBodyPartBroken", "IsBodyPartDestroyed" ]
+    },
+    {
+      "RenameClassNameTo": "PhysicalStamina",
+      "IsStruct": true,
+      "HasFields": [ "StaminaExhausted", "OxygenExhausted", "HandsExhausted" ],
+      "HasMethods": [ "Equals" ]
+    },
+    {
+      "RenameClassNameTo": "AbstractEffect",
+      "IsClass": true,
+      "IsAbstract": true,
+      "HasFields": [ "Id", "Type", "BodyPart", "State", "CurrentStrength", "Strength", "TimeLeft", "OverallDuration", "WasPaused" ],
+      "HasMethods": [ "Serialize", "Restored", "RegularUpdate" ]
+    },
+    {
+      "RenameClassNameTo": "ProfileHealth",
+      "IsClass": true,
+      "IsNestedInClass": "EFT.Profile",
+      "HasFields": [ "BodyParts" ]
+    },
+    {
+      "RenameClassNameTo": "PlayerLoopSystemHelpers",
+      "IsClass": true,
+      "HasMethodsStatic": [ "FindParentPlayerLoopSystem" ]
+    },
+    {
+      "RenameClassNameTo": "BundleLoaderProgress",
+      "IsClass": true,
+      "HasConstructorArgs": [ "handler", "cancellationToken" ],
+      "HasMethods": [ "Report" ]
+    },
+    {
+      "RenameClassNameTo": "BundleLoaderProgressStruct",
+      "IsStruct": true,
+      "HasFields": [ "Progress", "Stage" ],
+      "ExactDeclaredFieldCount": 2
+    },
+    {
+      "RenameClassNameTo": "ItemsCount",
+      "IsStruct": true,
+      "HasConstructorArgs": [ "item", "numberToDestroy", "numberToPreserve" ],
+      "HasFields": [ "Item", "NumberToDestroy", "NumberToPreserve" ],
+      "HasMethods": [ "Deconstruct" ],
+      "ExactDeclaredFieldCount": 3
     }
-
-  ],
-  "DefinedTypesToForcePublic": [
-    "BodyPartState",
-    "AHealthController/BodyPartState",
-    "EFT.Player/PlayerInventoryController",
-    "EFT.Player/PlayerOwnerInventoryController",
-    "EFT.Player/SinglePlayerInventoryController",
-    "EFT.Player/EmptyHandsController",
-    "EasyBundle",
-    "ProfileChangeHandler"
-  ],
-  "TypesToForceAllPublicMethods": [
-    "EFT.BaseLocalGame",
-    "EFT.Player",
-    "ItemController",
-    "AbstractInventoryOperation"
-  ],
-  "TypesToForceAllPublicFieldsAndProperties": [
-    "BaseLocalGame",
-    "AbstractActiveHealthController"
-  ],
-  "TypesToConvertConstructorsToPublic": [
-    "AbstractInventoryOperation",
-    "MoveInternalOperation",
-    "FoldOperation"
-  ],
-  "AutoRemapTypeExcemptions": [
-
   ],
   "AutoRemapDescriptors": true
 }

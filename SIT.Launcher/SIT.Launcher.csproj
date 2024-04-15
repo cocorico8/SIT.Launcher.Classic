@@ -392,13 +392,17 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.MaterialDesign" Version="4.11.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.3.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.5" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.3" />
     <PackageReference Include="NetDiscordRpc" Version="1.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Octokit" Version="7.1.0" />
+    <PackageReference Include="Octokit" Version="10.0.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Paulov.Tarkov.Deobfuscator.Lib\Paulov.Tarkov.Deobfuscator.Lib\Paulov.Tarkov.Deobfuscator.Lib.csproj" />
   </ItemGroup>
 	<ItemGroup>
 		<Reference Include="Mono.Cecil">
@@ -406,9 +410,6 @@
 		</Reference>
 		<Reference Include="Mono.Cecil.Rocks">
 		  <HintPath>..\..\Paulov.Tarkov.Deobfuscator.Lib\Paulov.Tarkov.Deobfuscator.Lib\bin\Debug\net7.0\Mono.Cecil.Rocks.dll</HintPath>
-		</Reference>
-		<Reference Include="Paulov.Tarkov.Deobfuscator.Lib">
-		  <HintPath>..\..\Paulov.Tarkov.Deobfuscator.Lib\Paulov.Tarkov.Deobfuscator.Lib\bin\Debug\net7.0\Paulov.Tarkov.Deobfuscator.Lib.dll</HintPath>
 		</Reference>
 		<Reference Include="References/bsg.componentace.compression.libs.zlib.dll"></Reference>
 	</ItemGroup>
@@ -418,9 +419,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="DeObfus\mappings\Aki\AkiRemapperConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DeObfus\mappings\AutoRemapperConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="DeObfus\mappings\SIT\SITRemapperConfig.json">
