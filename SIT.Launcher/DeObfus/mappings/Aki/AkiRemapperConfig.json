@@ -24,7 +24,7 @@
     {
       "RenameClassNameTo": "BotMemoryClass",
       "HasMethods": [ "LoseVisionCurrentEnemy", "ComeToPoint", "AddEnemy" ]
-    }, 
+    },
     {
       "RenameClassNameTo": "BackendConfigSettingsClass",
       "HasFields": [ "StaminaDrain", "StaminaRestoration", "Stamina", "Mastering", "SkillsSettings" ]
@@ -331,7 +331,8 @@
       "RenameClassNameTo": "FoodClass",
       "HasConstructorArgs": [ "id", "template" ],
       "InheritsClass": "Item",
-      "HasFields": [ "ItemInteractionButtons" ]
+      "HasFields": [ "FoodDrinkComponent", "HealthEffectsComponent" ],
+      "HasMethods": [ "Compare" ]
     },
     {
       "RenameClassNameTo": "MedsClass",
@@ -403,7 +404,7 @@
       "HasMethodsStatic": [ "FindOrCreate" ]
     },
     {
-      "RenameClassNameTo": "IBallisticsCalculator",
+      "RenameClassNameTo": "ISubInteractions",
       "IsInterface": true,
       "HasMethods": [ "SetSubInteractions" ]
     },
@@ -469,8 +470,9 @@
     },
     {
       "RenameClassNameTo": "BotsPresets",
-      "HasFields": [ "BundlesLoading" ],
-      "HasMethods": [ "GetNewProfile", "CreateProfile" ]
+      "IsClass": true,
+      // "HasFields": [ "BundlesLoading" ],
+      "HasMethods": [ "FillCreationDataWithProfiles" ]
     },
     {
       "RenameClassNameTo": "ProfileDataClass",
@@ -736,9 +738,23 @@
       "MustBeGClass": true,
       "HasMethods": [ "SetImprovements", "SetImprovementDataset", "UpdateImprovements" ]
     },
+    // This is auto remapped to MatchmakerPlayersController
+    //{
+    //  "RenameClassNameTo": "MatchmakerPlayerControllerClass",
+    //  "IsClass": true,
+    //  "MustBeGClass": true,
+    //  "HasEvents": [ "OnReadyToStartRaid" ],
+    //  "HasMethods": [ "CreateRaidPlayerInfo", "NotificationReceivedHandler", "ShowInviteInRaidWindow", "GetContextInteractions", "OpenPlayerProfile" ]
+    //},
     // This is auto remapped to Achievement1
-    //"GClass1248": "AchievementModelClass",
-
+    //"GClass1251": "AchievementClass",
+    {
+      "RenameClassNameTo": "AchievementClass",
+      "IsClass": true,
+      "MustBeGClass": true,
+      "HasFields": [ "Template", "StatusData" ],
+      "HasMethods": [ "Initialize", "SetStatus", "CheckForStatusChange", "LoadSprite", "Reset" ]
+    },
 
     // This is stuff that is not on Aki's list
     {
@@ -754,17 +770,17 @@
       "HasMethods": [ "HandleFlareSuccessEvent", "SetInteractInHands" ]
     }
   ],
-  "EnableForceAllTypesPublic": false,
+  "EnableForceAllTypesPublic": true,
   "EnumAdditions": [
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptUsec",
-      "iValue": 47
+      "iValue": 49
     },
     {
       "type": "EFT.WildSpawnType",
       "eValue": "sptBear",
-      "iValue": 48
+      "iValue": 50
     }
   ]
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿#pragma warning disable CA1416 // Validate platform compatibility
+using Microsoft.Win32;
 
 namespace SIT.Launcher
 {
@@ -8,14 +9,20 @@ namespace SIT.Launcher
         {
             get
             {
-
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkovArena_live"))
+                try
                 {
-                    if (key != null)
+                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkovArena_live"))
                     {
-                        string exePath = key.GetValue("DisplayIcon").ToString();
-                        return exePath;
+                        if (key != null)
+                        {
+                            string exePath = key.GetValue("DisplayIcon").ToString();
+                            return exePath;
+                        }
                     }
+                }
+                catch
+                {
+
                 }
 
                 return string.Empty;
@@ -26,19 +33,25 @@ namespace SIT.Launcher
         {
             get
             {
-
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov"))
+                try
                 {
-                    if (key != null)
+                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov"))
                     {
-                        string exePath = key.GetValue("DisplayIcon").ToString();
-                        return exePath;
+                        if (key != null)
+                        {
+                            string exePath = key.GetValue("DisplayIcon").ToString();
+                            return exePath;
+                        }
                     }
                 }
+                catch
+                {
 
+                }
                 return string.Empty;
             }
         }
 
     }
 }
+#pragma warning restore CA1416 // Validate platform compatibility

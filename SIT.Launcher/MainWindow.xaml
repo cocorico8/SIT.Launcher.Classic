@@ -132,8 +132,11 @@
                     <Border Grid.Row="2">
                         <Border Background="#EE333333"  BorderThickness="1" BorderBrush="#999999" Padding="5">
                             <StackPanel>
-                                <TextBlock >Stay in Tarkov - Powered by SPT-AKI Server</TextBlock>
+                                <TextBlock Text="Stay in Tarkov - Powered by SPT-AKI Server" FontWeight="Bold"></TextBlock>
                                 <TextBlock Text="{Binding Config.InstallLocationEFT}"></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="btnSwitchEFTFolder" FontSize="10">Switch Folder</Button>
+                                </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Game Version: "></TextBlock>
                                     <TextBlock Text="{Binding EFTGameVersion}"></TextBlock>
@@ -142,6 +145,7 @@
                                     <TextBlock Text="SIT Version: "></TextBlock>
                                     <TextBlock Text="{Binding EFTSITVersion}"></TextBlock>
                                 </StackPanel>
+                                
                             </StackPanel>
                         </Border>
                     </Border>

@@ -185,12 +185,19 @@ namespace SIT.Launcher
 
         private async Task GetLatestSITRelease()
         {
-            var github = new GitHubClient(new ProductHeaderValue("SIT-Launcher"));
-            var user = await github.User.Get("paulov-t");
-            SITReleases = new ObservableCollection<Release>(await github.Repository.Release.GetAll("stayintarkov", "StayInTarkov.Client", new ApiOptions() { }));
-            SelectedSITRelease = SITReleases.OrderByDescending(x => x.CreatedAt).First();
+            try
+            {
+                var github = new GitHubClient(new ProductHeaderValue("SIT-Launcher"));
+                var user = await github.User.Get("paulov-t");
+                SITReleases = new ObservableCollection<Release>(await github.Repository.Release.GetAll("stayintarkov", "StayInTarkov.Client", new ApiOptions() { }));
+                SelectedSITRelease = SITReleases.OrderByDescending(x => x.CreatedAt).First();
+            }
+            catch (Exception ex)
+            {
 
+            }
         }
+
         public static FlowDocument HtmlToFlowDocument(string text)
         {
             var document = new FlowDocument();
@@ -552,6 +559,7 @@ namespace SIT.Launcher
             if (string.IsNullOrEmpty(Config.InstallLocationEFT) || !File.Exists(Config.InstallLocationEFT))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = "Open OFFLINE EFT";
                 openFileDialog.Filter = "EFT executatable|EscapeFromTarkov*";
                 if (openFileDialog.ShowDialog() == true)
                 {
@@ -569,6 +577,7 @@ namespace SIT.Launcher
             if (string.IsNullOrEmpty(Config.InstallLocationArena) || !File.Exists(Config.InstallLocationArena))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = "Open OFFLINE Arena";
                 openFileDialog.Filter = "EFT executatable|EscapeFromTarkovArena*";
                 if (openFileDialog.ShowDialog() == true)
                 {
@@ -750,8 +759,8 @@ namespace SIT.Launcher
             try
             {
                 var baseGamePath = Directory.GetParent(exeLocation).FullName;
-                var bepinexPath = System.IO.Path.Combine(exeLocation.Replace("EscapeFromTarkov.exe", "BepInEx"));
-                var bepinexWinHttpDLL = exeLocation.Replace("EscapeFromTarkov.exe", "winhttp.dll");
+                var bepinexPath = System.IO.Path.Combine(baseGamePath, "BepInEx");
+                var bepinexWinHttpDLL = System.IO.Path.Combine(baseGamePath, "winhttp.dll");
 
                 var bepinexCorePath = System.IO.Path.Combine(bepinexPath, "core");
                 var bepinexPluginsPath = System.IO.Path.Combine(bepinexPath, "plugins");
@@ -1088,7 +1097,7 @@ namespace SIT.Launcher
         private async Task<bool> Deobfuscate(string exeLocation, bool createBackup = true, bool overwriteExisting = true, bool doRemapping = true)
         {
             var debobfuscator = new PaulovDeobfuscator();
-            PaulovDeobfuscator.Logged.Clear();
+            debobfuscator.Logged.Clear();
             await Dispatcher.InvokeAsync(() =>
             {
                 txtDeobfuscateLog.Text = String.Empty;
@@ -1101,7 +1110,8 @@ namespace SIT.Launcher
             });
             loadingDialog.Update("Deobfuscating", "Deobfuscating");
 
-            var result = await debobfuscator.DeobfuscateAsync(exeLocation, createBackup, overwriteExisting, doRemapping, this);
+            var resultsRenamedClasses = new HashSet<string>();  
+            var result = await debobfuscator.DeobfuscateAsync(exeLocation, resultsRenamedClasses, createBackup, overwriteExisting, doRemapping, this);
             await Dispatcher.InvokeAsync(() =>
             {
                 btnDeobfuscate.IsEnabled = true;
@@ -1123,9 +1133,8 @@ namespace SIT.Launcher
 
         private bool NeedsDeobfuscation(string exeLocation)
         {
-            var assemblyLocation = exeLocation.Replace("EscapeFromTarkov.exe", "");
-            assemblyLocation += "EscapeFromTarkov_Data\\Managed\\Assembly-CSharp.dll";
-            return !File.Exists(assemblyLocation + ".backup");
+            var parentPath = System.IO.Directory.GetParent(exeLocation);
+            return !System.IO.Directory.EnumerateFiles(parentPath.FullName, "*Assembly-CSharp.dll.backup", SearchOption.AllDirectories).Any();
         }
 
         private void btnStartServer_Click(object sender, RoutedEventArgs e)
@@ -1143,11 +1152,24 @@ namespace SIT.Launcher
 
         private async void btnDeobfuscate_Click(object sender, RoutedEventArgs e)
         {
-            BrowseForOfflineGame();
-            if (!string.IsNullOrEmpty(Config.InstallLocationEFT) && Config.InstallLocationEFT.EndsWith(".exe"))
+            var msgBoxEFTOrArena = MessageBox.Show("Would you like to Browse for Arena?", "Arena", MessageBoxButton.YesNo);
+            if (msgBoxEFTOrArena == MessageBoxResult.No)
             {
-                CleanupDirectory(Config.InstallLocationEFT);
-                await Deobfuscate(Config.InstallLocationEFT, doRemapping: true);
+                BrowseForOfflineGame();
+                if (!string.IsNullOrEmpty(Config.InstallLocationEFT) && Config.InstallLocationEFT.EndsWith(".exe"))
+                {
+                    CleanupDirectory(Config.InstallLocationEFT);
+                    await Deobfuscate(Config.InstallLocationEFT, doRemapping: true);
+                }
+            }
+            else
+            {
+                BrowseForOfflineGameArena();
+                if (!string.IsNullOrEmpty(Config.InstallLocationArena) && Config.InstallLocationArena.EndsWith(".exe"))
+                {
+                    CleanupDirectory(Config.InstallLocationArena);
+                    await Deobfuscate(Config.InstallLocationArena, doRemapping: true);
+                }
             }
 
             UpdateButtonText(null);
@@ -1159,7 +1181,7 @@ namespace SIT.Launcher
             openFileDialog.Filter = "DLL (Assembly-CSharp)|Assembly-CSharp*.dll;";
             if (openFileDialog.ShowDialog() == true)
             {
-                new PaulovDeobfuscator().DeobfuscateAssembly(openFileDialog.FileName, Directory.GetParent(openFileDialog.FileName).FullName, doRemapping: true);
+                new PaulovDeobfuscator().DeobfuscateAssembly(openFileDialog.FileName, Directory.GetParent(openFileDialog.FileName).FullName, out var resultsRenamedClasses, doRemapping: true);
             }
         }
 
@@ -1306,6 +1328,11 @@ namespace SIT.Launcher
         private async void btnCheckForOfficialUpdate_Click(object sender, RoutedEventArgs e)
         {
             await UpdateInstallFromOfficial();
+        }
+
+        private void btnSwitchEFTFolder_Click()
+        {
+
         }
     }
 }

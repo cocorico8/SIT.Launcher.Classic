@@ -11,8 +11,15 @@ namespace SIT.Launcher
     {
         public static FileInfo FindOfficialGame()
         {
-            var fi = new FileInfo(RegistryManager.ArenaGamePathEXE);
-            return fi;
+            try
+            {
+                var fi = new FileInfo(RegistryManager.ArenaGamePathEXE);
+                return fi;
+            }
+            catch 
+            {
+                return null;
+            }
         }
     }
 }
